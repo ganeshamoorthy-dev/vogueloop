@@ -1,0 +1,519 @@
+/* VogueLoop — Midnight Wine Luxury Design Tokens & Theme Engine */
+
+:root {
+  /* Light Theme Fallbacks */
+  --bg-primary: #FAF8F5;
+  --bg-surface: #F2ECE5;
+  --bg-elevated: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --border: #E5DED5;
+
+  --text-primary: #252525;
+  --text-secondary: #746F6A;
+  --text-muted: #9A9590;
+
+  --brand-primary: #1E3A5F;          /* Navy - Trust / Transactions */
+  --brand-primary-dark: #142A45;
+  --brand-fashion: #7A263A;          /* Burgundy - Fashion / Selection / Action */
+  --brand-fashion-hover: #A83D55;
+  --brand-wine: #5A1628;             /* Deep Wine - Atmosphere / Environmental Gradients */
+  --brand-wine-light: #6F1D32;
+
+  --accent-gold: #C9A96E;            /* Champagne Gold - Luxury Micro Details */
+  --accent-gold-light: #F4E8D0;
+  --accent-gold-dark: #9E7D44;
+
+  --status-success: #5F8068;         /* Sage Green - Availability / Verification */
+  --status-success-bg: #EEF4EF;
+  --status-warning: #D97706;
+  --status-warning-bg: #FEF3C7;
+  --status-error: #B65353;
+  --status-error-bg: #FDF2F2;
+
+  /* Legacy Compatibility Aliases */
+  --color-brand-primary: var(--brand-primary);
+  --color-primary: var(--brand-primary);
+  --color-brand-fashion: var(--brand-fashion);
+  --color-burgundy: var(--brand-fashion);
+  --color-background: var(--bg-primary);
+  --color-surface: var(--bg-surface);
+  --color-surface-card: var(--bg-card);
+  --color-gold: var(--accent-gold);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-success: var(--status-success);
+  --color-error: var(--status-error);
+  --color-border: var(--border);
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 2rem;       /* 32px */
+  --text-4xl: 2.5rem;     /* 40px */
+  --text-5xl: 3.25rem;    /* 52px */
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Spacing Scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Standardized Shadows */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.6);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Midnight Wine Luxury - Dark Theme (Default) */
+[data-theme="dark"], body.dark-theme, html.dark-theme {
+  --bg-primary: #0D1117;             /* Midnight - Main Environment */
+  --bg-surface: #141A22;             /* Dark Surface */
+  --bg-elevated: #1B222C;            /* Elevated Dark Card Surface */
+  --bg-card: #141A22;                /* Dark Card Background */
+  --border: #303A46;                 /* Subtle Dark Border */
+
+  --text-primary: #FAF8F5;           /* Ivory - Primary Typography */
+  --text-secondary: #C9C2B9;         /* Muted Ivory - Secondary Text */
+  --text-muted: #848D97;             /* Muted Gray */
+
+  --brand-primary: #1E3A5F;          /* Deep Navy - Trust & Transactions */
+  --brand-primary-dark: #142A45;
+  --brand-fashion: #7A263A;          /* Burgundy - Fashion Action & Selection */
+  --brand-fashion-hover: #A83D55;
+  --brand-wine: #5A1628;             /* Deep Wine - Atmosphere & Depth */
+  --brand-wine-light: #6F1D32;
+
+  --accent-gold: #C9A96E;            /* Champagne Gold */
+  --accent-gold-light: #F4E8D0;
+  --accent-gold-dark: #9E7D44;
+
+  --status-success: #6F9A7C;         /* Sage Green - System Availability & Verification */
+  --status-success-bg: rgba(111, 154, 124, 0.15);
+  --status-warning: #F59E0B;
+  --status-warning-bg: rgba(245, 158, 11, 0.15);
+  --status-error: #E55353;
+  --status-error-bg: rgba(229, 83, 83, 0.15);
+
+  /* Legacy Compatibility Aliases */
+  --color-brand-primary: var(--brand-primary);
+  --color-primary: var(--brand-primary);
+  --color-brand-fashion: var(--brand-fashion);
+  --color-burgundy: var(--brand-fashion);
+  --color-background: var(--bg-primary);
+  --color-surface: var(--bg-surface);
+  --color-surface-card: var(--bg-card);
+  --color-gold: var(--accent-gold);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-success: var(--status-success);
+  --color-error: var(--status-error);
+  --color-border: var(--border);
+}
+
+/* Base Body Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Environmental Wine Atmosphere Radial Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 20% 20%, rgba(90, 22, 40, 0.18) 0%, rgba(13, 17, 23, 0) 50%),
+              radial-gradient(circle at 80% 80%, rgba(30, 58, 95, 0.15) 0%, rgba(13, 17, 23, 0) 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Typography Standard */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: var(--text-5xl); font-weight: 700; }
+h2 { font-size: var(--text-4xl); font-weight: 600; }
+h3 { font-size: var(--text-3xl); font-weight: 600; }
+h4 { font-size: var(--text-2xl); font-weight: 600; }
+h5 { font-size: var(--text-xl); font-weight: 500; }
+h6 { font-size: var(--text-lg); font-weight: 500; }
+
+p {
+  margin-bottom: var(--space-md);
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+}
+
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--brand-fashion);
+}
+
+/* Standardized Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(122, 38, 58, 0.4);
+}
+
+/* Primary Transactional CTA -> NAVY (Trust & Reliability) */
+.btn-primary {
+  background-color: var(--brand-primary);
+  color: #FFFFFF !important;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-primary-dark);
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Fashion / Discovery CTA -> BURGUNDY (Emotional & Discovery) */
+.btn-burgundy, .btn-fashion {
+  background-color: var(--brand-fashion);
+  color: #FFFFFF !important;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-burgundy:hover, .btn-fashion:hover {
+  background-color: var(--brand-fashion-hover);
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-elevated);
+  border-color: var(--brand-fashion);
+  color: var(--text-primary);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1.5px solid var(--border);
+}
+
+.btn-outline:hover {
+  border-color: var(--brand-fashion);
+  color: var(--brand-fashion);
+}
+
+.btn-sm {
+  padding: 0.4rem 1rem;
+  font-size: var(--text-sm);
+}
+
+.btn-lg {
+  padding: 0.95rem 2rem;
+  font-size: var(--text-lg);
+  border-radius: var(--radius-md);
+}
+
+/* Standardized Cards */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+  border-color: var(--brand-fashion);
+  box-shadow: var(--shadow-md);
+}
+
+/* Standardized Inputs */
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: var(--text-base);
+  font-family: var(--font-sans);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--brand-fashion);
+  box-shadow: 0 0 0 3px rgba(122, 38, 58, 0.25);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 110px;
+}
+
+select.input {
+  cursor: pointer;
+}
+
+/* Container Utility */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* Grid System */
+.grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 1024px) {
+  .grid-cols-4 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-cols-3, .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .grid-cols-2, .grid-cols-3, .grid-cols-4 { grid-template-columns: repeat(1, 1fr); }
+}
+
+/* Eyebrow Highlight Class */
+.section-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--brand-fashion);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Badges System */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.badge-navy {
+  background: var(--brand-primary);
+  color: #FFFFFF;
+  border: none;
+}
+
+.badge-burgundy {
+  background: var(--brand-fashion);
+  color: #FFFFFF;
+  border: none;
+}
+
+.badge-gold {
+  background: rgba(201, 169, 110, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(201, 169, 110, 0.3);
+}
+
+.badge-sage {
+  background: var(--status-success-bg);
+  color: var(--status-success);
+  border: 1px solid rgba(111, 154, 124, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-slow) ease-out;
+}
+
+/* Vertical Padding Utilities */
+.py-xs { padding-top: var(--space-xs); padding-bottom: var(--space-xs); }
+.py-sm { padding-top: var(--space-sm); padding-bottom: var(--space-sm); }
+.py-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+.py-lg { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+.py-xl { padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+.py-2xl { padding-top: var(--space-2xl); padding-bottom: var(--space-2xl); }
+.py-3xl { padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); }
+
+/* Horizontal Padding Utilities */
+.px-xs { padding-left: var(--space-xs); padding-right: var(--space-xs); }
+.px-sm { padding-left: var(--space-sm); padding-right: var(--space-sm); }
+.px-md { padding-left: var(--space-md); padding-right: var(--space-md); }
+.px-lg { padding-left: var(--space-lg); padding-right: var(--space-lg); }
+.px-xl { padding-left: var(--space-xl); padding-right: var(--space-xl); }
+.px-2xl { padding-left: var(--space-2xl); padding-right: var(--space-2xl); }
+.px-3xl { padding-left: var(--space-3xl); padding-right: var(--space-3xl); }
+
+/* Margin Top Utilities */
+.mt-xs { margin-top: var(--space-xs); }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+.mt-2xl { margin-top: var(--space-2xl); }
+.mt-3xl { margin-top: var(--space-3xl); }
+
+/* Margin Bottom Utilities */
+.mb-xs { margin-bottom: var(--space-xs); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+.mb-2xl { margin-bottom: var(--space-2xl); }
+.mb-3xl { margin-bottom: var(--space-3xl); }
+
+/* Margin Vertical Utilities */
+.my-xs { margin-top: var(--space-xs); margin-bottom: var(--space-xs); }
+.my-sm { margin-top: var(--space-sm); margin-bottom: var(--space-sm); }
+.my-md { margin-top: var(--space-md); margin-bottom: var(--space-md); }
+.my-lg { margin-top: var(--space-lg); margin-bottom: var(--space-lg); }
+.my-xl { margin-top: var(--space-xl); margin-bottom: var(--space-xl); }
+.my-2xl { margin-top: var(--space-2xl); margin-bottom: var(--space-2xl); }
+.my-3xl { margin-top: var(--space-3xl); margin-bottom: var(--space-3xl); }
+
+/* Text Alignment & Color Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-primary { color: var(--text-primary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-success { color: var(--status-success) !important; }
+.text-warning { color: var(--status-warning) !important; }
+.text-error { color: var(--status-error) !important; }
+.text-gold { color: var(--accent-gold) !important; }
+
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+
+/* Flex & Alignment Utilities */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+.gap-xl { gap: var(--space-xl); }
+
+@media (max-width: 768px) {
+  :root {
+    --text-5xl: 2.25rem;
+    --text-4xl: 1.875rem;
+    --text-3xl: 1.5rem;
+    --space-3xl: 40px;
+    --space-2xl: 32px;
+  }
+  .container {
+    padding: 0 var(--space-md);
+  }
+}

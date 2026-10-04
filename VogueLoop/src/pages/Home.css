@@ -1,0 +1,503 @@
+.home-page {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+}
+
+/* Hero Section with Deep Wine Atmospheric Gradient */
+.hero-section {
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  background: radial-gradient(circle at 75% 85%, rgba(90, 22, 40, 0.35) 0%, rgba(13, 17, 23, 0) 65%),
+              radial-gradient(circle at 20% 20%, rgba(30, 58, 95, 0.25) 0%, rgba(13, 17, 23, 0) 60%),
+              var(--bg-primary);
+  overflow: hidden;
+  position: relative;
+  transition: background var(--transition-base);
+}
+
+[data-theme="light"] .hero-section {
+  background: radial-gradient(circle at 75% 85%, rgba(122, 38, 58, 0.08) 0%, rgba(250, 248, 245, 0) 65%),
+              radial-gradient(circle at 20% 20%, rgba(30, 58, 95, 0.06) 0%, rgba(250, 248, 245, 0) 60%),
+              var(--bg-primary);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+/* Hero Staggered Entrance Animations */
+@keyframes heroFadeScale {
+  0% { opacity: 0; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes heroSlideUp {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatSlideUp {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-anim-image { animation: heroFadeScale 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.hero-anim-eyebrow { animation: heroSlideUp 500ms cubic-bezier(0.16, 1, 0.3, 1) 100ms forwards; opacity: 0; }
+.hero-anim-headline { animation: heroSlideUp 550ms cubic-bezier(0.16, 1, 0.3, 1) 200ms forwards; opacity: 0; }
+.hero-anim-desc { animation: heroSlideUp 550ms cubic-bezier(0.16, 1, 0.3, 1) 300ms forwards; opacity: 0; }
+.hero-anim-buttons { animation: heroSlideUp 600ms cubic-bezier(0.16, 1, 0.3, 1) 400ms forwards; opacity: 0; }
+.hero-anim-trust { animation: heroSlideUp 600ms cubic-bezier(0.16, 1, 0.3, 1) 500ms forwards; opacity: 0; }
+.hero-anim-floating { animation: floatSlideUp 650ms cubic-bezier(0.16, 1, 0.3, 1) 600ms forwards; opacity: 0; }
+
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+}
+
+.gold-sparkle {
+  color: var(--accent-gold);
+}
+
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.12;
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.02em;
+}
+
+.fashion-highlight-text {
+  color: var(--accent-gold);
+  font-style: italic;
+}
+
+.hero-subtext {
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-2xl);
+  max-width: 540px;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.hero-btn-main {
+  box-shadow: var(--shadow-md);
+}
+
+.hero-btn-lender {
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-micro-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border);
+}
+
+.micro-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.sage-check {
+  color: var(--status-success);
+}
+
+/* Hero Visual Card & Frame */
+.hero-visual-card {
+  position: relative;
+}
+
+.hero-image-frame {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border);
+  height: 520px;
+  background: var(--bg-surface);
+}
+
+.hero-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.hero-floating-card {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+}
+
+.floating-card-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--status-success);
+  margin-bottom: 2px;
+}
+
+.floating-card-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.floating-card-price {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.floating-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Section Header Styles */
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+}
+
+.section-header h2 {
+  margin-bottom: 0;
+  color: var(--text-primary);
+}
+
+.section-header-centered {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto var(--space-2xl);
+}
+
+.section-header-centered h2 {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-sm);
+  color: var(--text-primary);
+}
+
+.section-header-centered p {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: gap var(--transition-fast), color var(--transition-fast);
+}
+
+.view-all-link:hover {
+  gap: 10px;
+  color: var(--brand-fashion);
+}
+
+/* Occasions Grid */
+.occasions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+/* Simple 4-Step Homepage Lifecycle Grid */
+.how-it-works-section {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.simple-lifecycle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+.lifecycle-step-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+
+.lifecycle-step-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-fashion);
+}
+
+.lifecycle-step-num {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: var(--space-md);
+  line-height: 1;
+}
+
+.lifecycle-step-card h3 {
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.lifecycle-step-card p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* Lender CTA Section Banner */
+.lender-cta-banner {
+  background: radial-gradient(circle at 90% 10%, rgba(122, 38, 58, 0.4) 0%, rgba(30, 58, 95, 0.95) 70%),
+              var(--brand-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3xl) var(--space-2xl);
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lender-cta-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.lender-cta-content {
+  max-width: 540px;
+}
+
+.lender-cta-content h2 {
+  color: #FFFFFF !important;
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-md);
+}
+
+.lender-cta-content p {
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.lender-cta-visual {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: var(--space-2xl);
+}
+
+.lender-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.lender-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.gold-check {
+  color: var(--accent-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.lender-feature-item strong {
+  display: block;
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+
+.lender-feature-item p {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.75) !important;
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+  .hero-visual-card {
+    order: -1;
+  }
+  .hero-image-frame {
+    height: 380px;
+  }
+  .occasions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .simple-lifecycle-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lender-cta-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-micro-trust {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .occasions-grid, .simple-lifecycle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Brand Authority Stat Bar */
+.brand-stat-bar {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-bar-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.brand-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-number-gold {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--accent-gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-text-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-divider-line {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+}
+
+/* Couture Designer Showcase */
+.designer-showcase-bar {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.designer-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--brand-fashion);
+  text-transform: uppercase;
+}
+
+.designer-names-row {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.designer-names-row span {
+  transition: color var(--transition-fast);
+}
+
+.designer-names-row span:hover {
+  color: var(--accent-gold);
+}
+
+@media (max-width: 768px) {
+  .stat-bar-grid {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .stat-divider-line {
+    display: none;
+  }
+}
