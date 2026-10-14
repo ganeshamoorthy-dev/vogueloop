@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingBag, User, Menu, X, Search, Heart, Sparkles, Sun, Moon } from 'lucide-react';
+import { ShoppingBag, User, Menu, X, Search, Sparkles, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useListings } from '../context/ListingsContext';
@@ -11,7 +11,7 @@ const Navbar = () => {
     const location = useLocation();
     const { user, isAuthenticated, logout } = useAuth();
     const { itemCount } = useCart();
-    const { wishlist, searchQuery, setSearchQuery } = useListings();
+    const { searchQuery, setSearchQuery } = useListings();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchFocused, setSearchFocused] = useState(false);
 
@@ -33,8 +33,6 @@ const Navbar = () => {
     const toggleTheme = () => {
         setTheme(prev => prev === 'dark' ? 'light' : 'dark');
     };
-
-    const wishlistCount = wishlist.length;
 
     const handleAuthToggle = () => {
         if (isAuthenticated) {
@@ -58,19 +56,6 @@ const Navbar = () => {
 
     return (
         <header className="navbar-header">
-            {/* Announcement Bar */}
-            <div className="announcement-bar">
-                <div className="container announcement-content">
-                    <span className="announcement-text">
-                        <Sparkles size={13} className="gold-sparkle" />
-                        Complimentary Dry Cleaning & Doorstep Returns Included On All Rentals
-                    </span>
-                    <span className="announcement-link">
-                        <Link to="/browse">Explore Evening Collection →</Link>
-                    </span>
-                </div>
-            </div>
-
             {/* Main Navigation */}
             <nav className="navbar">
                 <div className="container">
@@ -80,16 +65,16 @@ const Navbar = () => {
                             <div className="logo-emblem">VL</div>
                             <div className="logo-text-wrapper">
                                 <span className="logo-text-brand">VOGUE<span className="logo-text-gold">LOOP</span></span>
-                                <span className="logo-sub-tagline">LUXURY ARCHIVE</span>
+                                <span className="logo-sub-tagline">CAMPUS FASHION LOOP</span>
                             </div>
                         </Link>
 
-                        {/* Streamlined Primary Desktop Nav Links */}
+                        {/* Centered Desktop Nav Links */}
                         <div className="navbar-links">
                             <Link to="/browse" className={`nav-link ${location.pathname === '/browse' ? 'active' : ''}`}>
-                                Browse Collection
+                                Browse Outfits
                             </Link>
-                            <a href="#how-it-works" onClick={(e) => {
+                            <a href="/#how-it-works" onClick={(e) => {
                                 if (location.pathname !== '/') {
                                     e.preventDefault();
                                     navigate('/#how-it-works');
@@ -99,14 +84,14 @@ const Navbar = () => {
                             </a>
                         </div>
 
-                        {/* Uncluttered Right Action Group */}
+                        {/* Right Action Group */}
                         <div className="navbar-right-group">
                             {/* Expandable Compact Search */}
                             <form onSubmit={handleSearchSubmit} className={`navbar-search ${searchFocused ? 'focused' : ''}`}>
                                 <Search size={15} className="search-icon" />
                                 <input
                                     type="text"
-                                    placeholder="Search..."
+                                    placeholder="Search campus outfits..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onFocus={() => setSearchFocused(true)}
@@ -125,7 +110,7 @@ const Navbar = () => {
                                     title={`Switch to ${theme === 'dark' ? 'Light' : 'Midnight Dark'} Theme`}
                                     aria-label="Toggle Dark Theme"
                                 >
-                                    {theme === 'dark' ? <Sun size={17} className="theme-icon sun" /> : <Moon size={17} className="theme-icon moon" />}
+                                    {theme === 'dark' ? <Sun size={16} className="theme-icon sun" /> : <Moon size={16} className="theme-icon moon" />}
                                 </button>
 
                                 {/* Cart Link */}
@@ -134,17 +119,22 @@ const Navbar = () => {
                                     {itemCount > 0 && <span className="action-badge navy">{itemCount}</span>}
                                 </Link>
 
-                                {/* Account / Sign In Link */}
+                                {/* Account / Sign In */}
                                 {isAuthenticated ? (
-                                    <Link to="/dashboard" className="nav-icon-btn user-btn" title="Dashboard">
-                                        <User size={18} />
-                                        <span className="user-name-label">{user?.name?.split(' ')[0]}</span>
-                                    </Link>
-                                ) : null}
-
-                                <button onClick={handleAuthToggle} className="btn btn-sm btn-primary nav-auth-btn">
-                                    {isAuthenticated ? 'Logout' : 'Sign In'}
-                                </button>
+                                    <div className="nav-user-cluster">
+                                        <Link to="/dashboard" className="nav-user-pill" title="My Dashboard">
+                                            <User size={15} />
+                                            <span className="user-name-label">{user?.name?.split(' ')[0]}</span>
+                                        </Link>
+                                        <button onClick={handleAuthToggle} className="btn btn-sm btn-secondary nav-logout-btn">
+                                            Logout
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <button onClick={handleAuthToggle} className="btn btn-sm btn-primary nav-auth-btn">
+                                        Sign In
+                                    </button>
+                                )}
 
                                 {/* Mobile Hamburger Button */}
                                 <button className="mobile-menu-btn" onClick={toggleMobileMenu} aria-label="Toggle Navigation Menu">
@@ -160,7 +150,7 @@ const Navbar = () => {
                             <form onSubmit={handleSearchSubmit} className="mobile-search-box">
                                 <input
                                     type="text"
-                                    placeholder="Search designer outfits..."
+                                    placeholder="Search campus outfits..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="input"
@@ -171,15 +161,16 @@ const Navbar = () => {
                                     Home
                                 </Link>
                                 <Link to="/browse" className="mobile-nav-link" onClick={toggleMobileMenu}>
-                                    Browse Collection
+                                    Browse Outfits
                                 </Link>
-                                <Link to="/upload" className="mobile-nav-link list-highlight" onClick={toggleMobileMenu}>
-                                    + List Your Dress
-                                </Link>
+                                <a href="/#how-it-works" className="mobile-nav-link" onClick={toggleMobileMenu}>
+                                    How It Works
+                                </a>
+
                                 {isAuthenticated ? (
                                     <>
                                         <Link to="/dashboard" className="mobile-nav-link" onClick={toggleMobileMenu}>
-                                            My Dashboard & Rentals
+                                            My Dashboard (Renter & Lender)
                                         </Link>
                                         <button onClick={() => { handleAuthToggle(); toggleMobileMenu(); }} className="mobile-logout-btn">
                                             Logout

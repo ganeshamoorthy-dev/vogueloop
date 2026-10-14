@@ -5,7 +5,7 @@ const TrustBadge = ({ type = 'verified', text }) => {
     return (
       <span className="badge badge-sage">
         <Sparkles size={13} />
-        <span>{text || 'Professionally Cleaned'}</span>
+        <span>{text || 'Care Inspected'}</span>
       </span>
     );
   }
@@ -14,7 +14,7 @@ const TrustBadge = ({ type = 'verified', text }) => {
     return (
       <span className="badge badge-gold">
         <Sparkles size={13} />
-        <span>{text || 'Premium Luxury'}</span>
+        <span>{text || 'Campus Favorite'}</span>
       </span>
     );
   }
@@ -22,7 +22,7 @@ const TrustBadge = ({ type = 'verified', text }) => {
   return (
     <span className="badge badge-navy">
       <ShieldCheck size={13} />
-      <span>{text || 'Verified Owner'}</span>
+      <span>{text || 'Verified Student Lender'}</span>
     </span>
   );
 };

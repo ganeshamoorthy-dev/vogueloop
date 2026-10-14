@@ -1,13 +1,12 @@
-import { CheckCircle2, Clock, Package, Truck, Home, RotateCcw, Award } from 'lucide-react';
+import { CheckCircle2, Clock, MapPin, Sparkles, RotateCcw, ShieldCheck } from 'lucide-react';
 import './RentalTimeline.css';
 
 const STEPS = [
-  { key: 'booked', label: 'Booked', icon: CheckCircle2, desc: 'Order Confirmed' },
-  { key: 'preparing', label: 'Preparing', icon: Package, desc: 'Cleaned & Quality Checked' },
-  { key: 'shipped', label: 'Shipped', icon: Truck, desc: 'In Transit to You' },
-  { key: 'delivered', label: 'Delivered', icon: Home, desc: 'Enjoy Your Moment!' },
-  { key: 'return', label: 'Return', icon: RotateCcw, desc: 'Doorstep Pickup' },
-  { key: 'completed', label: 'Completed', icon: Award, desc: 'Rental Finished' },
+  { key: 'booked', label: 'Booked', icon: CheckCircle2, desc: 'Dates & Deposit Locked' },
+  { key: 'handover', label: 'Handover', icon: MapPin, desc: 'Campus Landmark Meetup' },
+  { key: 'active', label: 'Event Period', icon: Sparkles, desc: 'Rock Your Fest / Event' },
+  { key: 'return', label: 'Return', icon: RotateCcw, desc: 'Campus Return Meetup' },
+  { key: 'completed', label: 'Deposit Released', icon: ShieldCheck, desc: 'Condition Confirmed & Done' },
 ];
 
 const RentalTimeline = ({ currentStatus = 'booked' }) => {

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Heart, Sparkles } from 'lucide-react';
+import { ShieldCheck, Sparkles, Heart } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -7,74 +7,53 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="footer-top">
+          {/* Brand Info */}
           <div className="footer-brand">
-            <Link to="/" className="navbar-logo mb-md">
+            <Link to="/" className="navbar-logo mb-sm">
               <div className="logo-emblem">VL</div>
               <div className="logo-text-wrapper">
                 <span className="logo-text-brand">VOGUE<span className="logo-text-gold">LOOP</span></span>
-                <span className="logo-sub-tagline">LUXURY ARCHIVE</span>
+                <span className="logo-sub-tagline">CAMPUS FASHION LOOP</span>
               </div>
             </Link>
             <p className="footer-tagline">
-              VogueLoop is India's premier luxury fashion rental archive. Wear iconic designer lehengas, sarees, sherwanis, and gowns with complete peace of mind.
+              A zero-inventory, hyperlocal peer-to-peer fashion rental marketplace for verified students. Rent occasion wear from students nearby and share your closet.
             </p>
-            <div className="footer-trust-badge">
-              <ShieldCheck size={16} />
-              <span>100% Sanitized & Quality Inspected Guarantee</span>
+            <div className="footer-trust-pill">
+              <ShieldCheck size={14} className="sage-icon" />
+              <span>Enrolled Student Community • Safe Campus Landmark Meetups</span>
             </div>
           </div>
 
+          {/* Simple, Streamlined Links */}
           <div className="footer-links-group">
             <div className="footer-col">
-              <h4>Discover</h4>
+              <h4>Explore</h4>
               <ul>
-                <li><Link to="/browse">All Collections</Link></li>
-                <li><Link to="/browse?occasion=Wedding">Wedding Collection</Link></li>
-                <li><Link to="/browse?occasion=Reception">Reception Glam</Link></li>
-                <li><Link to="/browse?category=Lehenga">Designer Lehengas</Link></li>
-                <li><Link to="/browse?category=Sherwani">Men's Sherwanis</Link></li>
+                <li><Link to="/browse">Browse Outfits</Link></li>
+                <li><a href="/#how-it-works">How It Works</a></li>
+                <li><Link to="/dashboard">Student Portal</Link></li>
               </ul>
             </div>
 
             <div className="footer-col">
-              <h4>Occasions</h4>
+              <h4>Trust & Safety</h4>
               <ul>
-                <li><Link to="/browse?occasion=Wedding">Weddings</Link></li>
-                <li><Link to="/browse?occasion=Cocktail">Cocktail Parties</Link></li>
-                <li><Link to="/browse?occasion=Formal">Formal Galas</Link></li>
-                <li><Link to="/browse?occasion=Birthday">Birthday Celebrations</Link></li>
-                <li><Link to="/browse?occasion=Date Night">Date Nights</Link></li>
-              </ul>
-            </div>
-
-            <div className="footer-col">
-              <h4>Owners & Lenders</h4>
-              <ul>
-                <li><Link to="/upload">List Your Outfit</Link></li>
-                <li><Link to="/dashboard">Owner Dashboard</Link></li>
-                <li><Link to="/how-it-works">Lender Protection Guarantee</Link></li>
-                <li><Link to="/earnings-calculator">Earnings Calculator</Link></li>
-              </ul>
-            </div>
-
-            <div className="footer-col">
-              <h4>Trust & Care</h4>
-              <ul>
-                <li><Link to="/trust">The Trusted Guarantee</Link></li>
-                <li><Link to="/cleaning">Dry Cleaning Standards</Link></li>
-                <li><Link to="/fit-policy">Fit Guarantee</Link></li>
-                <li><Link to="/support">Contact Support</Link></li>
+                <li><Link to="/policies">Campus Policies</Link></li>
+                <li><Link to="/policies">Refundable Deposits</Link></li>
+                <li><Link to="/policies">Handover Checklist</Link></li>
               </ul>
             </div>
           </div>
         </div>
 
+        {/* Bottom Bar */}
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} VogueLoop. Trusted Luxury Fashion Rental Marketplace.</p>
+          <p>© {new Date().getFullYear()} The Vogue Loop. Peer-to-Peer Student Marketplace.</p>
           <div className="footer-bottom-links">
-            <Link to="/terms">Terms of Service</Link>
-            <Link to="/privacy">Privacy Policy</Link>
-            <Link to="/trust">Security</Link>
+            <Link to="/policies">Terms & Safety Standards</Link>
+            <span className="footer-dot">•</span>
+            <span className="footer-eco-note">Circular Fashion for Campus</span>
           </div>
         </div>
       </div>

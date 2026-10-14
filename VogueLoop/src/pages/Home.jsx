@@ -1,55 +1,55 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Sparkles, ArrowRight, CheckCircle2, Star } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2, MapPin, Repeat, ShieldCheck, Tag, Users } from 'lucide-react';
 import { useListings } from '../context/ListingsContext';
 import ClothingCard from '../components/ClothingCard';
 import OccasionCard from '../components/OccasionCard';
 import TrustLayer from '../components/TrustLayer';
 import Footer from '../components/Footer';
 import MobileBottomNav from '../components/MobileBottomNav';
-import { handleImageError, FALLBACK_IMAGE } from '../utils/imageFallback';
+import { handleImageError } from '../utils/imageFallback';
 import './Home.css';
 
 const OCCASIONS = [
   {
-    title: 'Wedding',
-    count: '48 Outfits',
-    image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Reception',
-    count: '32 Outfits',
-    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Party',
-    count: '24 Outfits',
+    title: 'College Fest',
+    count: 'Available Nearby',
     image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80',
   },
   {
-    title: 'Cocktail',
-    count: '29 Outfits',
-    image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+    title: 'Farewell & Graduation',
+    count: 'Available Nearby',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
   },
   {
-    title: 'Birthday',
-    count: '18 Outfits',
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+    title: 'Festive & Ethnic Day',
+    count: 'Available Nearby',
+    image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
   },
   {
-    title: 'Formal',
-    count: '35 Outfits',
+    title: 'Formals & Placements',
+    count: 'Available Nearby',
     image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80',
   },
   {
-    title: 'Date Night',
-    count: '20 Outfits',
+    title: 'Weddings',
+    count: 'Available Nearby',
     image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e5?auto=format&fit=crop&w=800&q=80',
   },
   {
-    title: 'Festive',
-    count: '42 Outfits',
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80',
+    title: 'Parties & Birthdays',
+    count: 'Available Nearby',
+    image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'University Events',
+    count: 'Available Nearby',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Photoshoots & Performances',
+    count: 'Available Nearby',
+    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -59,12 +59,14 @@ const Home = () => {
     const selectedOccasionParam = searchParams.get('occasion');
     const featuredListings = listings.slice(0, 4);
 
+    const [howItWorksTab, setHowItWorksTab] = useState('renter'); // 'renter' or 'lender'
+
     // Mouse Parallax for Hero Image
     const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
     const handleMouseMove = (e) => {
         const { clientX, clientY } = e;
-        const moveX = (clientX / window.innerWidth - 0.5) * 12; // -6px to 6px
+        const moveX = (clientX / window.innerWidth - 0.5) * 12;
         const moveY = (clientY / window.innerHeight - 0.5) * 12;
         setMouseOffset({ x: moveX, y: moveY });
     };
@@ -80,30 +82,30 @@ const Home = () => {
                 <div className="container">
                     <div className="hero-grid">
                         <div className="hero-text-content">
-                            {/* Eyebrow - Burgundy Fashion Badge */}
+                            {/* Eyebrow - Student Hyperlocal Badge */}
                             <div className="hero-pill-badge hero-anim-eyebrow">
                                 <Sparkles size={14} className="gold-sparkle" />
-                                <span>Midnight Wine Luxury Rental</span>
+                                <span>HYPERLOCAL STUDENT FASHION NETWORK</span>
                             </div>
 
                             {/* Headline */}
                             <h1 className="hero-headline hero-anim-headline">
-                                Find the look for your <span className="fashion-highlight-text">moment.</span>
+                                Your campus has a <span className="fashion-highlight-text">bigger closet</span> than you think.
                             </h1>
 
                             {/* Description */}
                             <p className="hero-subtext hero-anim-desc">
-                                Dresses made for moments worth remembering. Explore evening gowns, lehengas, and suits for weddings, celebrations and every occasion in between.
+                                Rent occasion wear from verified students nearby or list outfits you already own and earn when you're not wearing them.
                             </p>
 
                             {/* Buttons: Primary Navy Transactional & Secondary Burgundy Discovery */}
                             <div className="hero-cta-group hero-anim-buttons">
                                 <Link to="/browse" className="btn btn-lg btn-primary hero-btn-main">
-                                    Explore Collection
+                                    Browse Nearby Outfits
                                     <ArrowRight size={18} />
                                 </Link>
                                 <Link to="/upload" className="btn btn-lg btn-burgundy hero-btn-lender">
-                                    List Your Dress
+                                    List Your Outfit
                                 </Link>
                             </div>
 
@@ -111,15 +113,19 @@ const Home = () => {
                             <div className="hero-micro-trust hero-anim-trust">
                                 <div className="micro-trust-item">
                                     <CheckCircle2 size={16} className="sage-check" />
-                                    <span>Dry Cleaned & Sanitized</span>
+                                    <span>Verified Students</span>
                                 </div>
                                 <div className="micro-trust-item">
                                     <CheckCircle2 size={16} className="sage-check" />
-                                    <span>Verified Owners</span>
+                                    <span>Hyperlocal Handover</span>
                                 </div>
                                 <div className="micro-trust-item">
                                     <CheckCircle2 size={16} className="sage-check" />
-                                    <span>Doorstep Delivery & Return</span>
+                                    <span>Refundable Deposits</span>
+                                </div>
+                                <div className="micro-trust-item">
+                                    <CheckCircle2 size={16} className="sage-check" />
+                                    <span>Zero Inventory</span>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +135,7 @@ const Home = () => {
                             <div className="hero-image-frame">
                                 <img
                                     src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=80"
-                                    alt="Royal Blue Zari Lehenga"
+                                    alt="Student shared occasion wear"
                                     className="hero-main-img"
                                     onError={handleImageError}
                                     style={{
@@ -138,14 +144,14 @@ const Home = () => {
                                     }}
                                 />
 
-                                {/* Floating Product Card */}
+                                {/* Floating P2P Product Card */}
                                 <div className="hero-floating-card hero-anim-floating">
-                                    <div className="floating-card-badge">✓ Available Now</div>
-                                    <h4 className="floating-card-title">Royal Blue Zari Lehenga</h4>
-                                    <p className="floating-card-price">₹1,499 / 3 days</p>
-                                    <div className="floating-card-rating">
-                                        <Star size={12} fill="#C9A96E" color="#C9A96E" />
-                                        <span>4.9 (28 reviews)</span>
+                                    <div className="floating-card-badge">✓ Listed by Aishwarya R. (Verified Student)</div>
+                                    <h4 className="floating-card-title">Royal Blue Zari Silk Lehenga</h4>
+                                    <p className="floating-card-price">₹799 / 3 days</p>
+                                    <div className="floating-card-location">
+                                        <MapPin size={12} className="pin-icon" />
+                                        <span>University Hub • 0.8 km from campus</span>
                                     </div>
                                 </div>
                             </div>
@@ -154,50 +160,62 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Brand Authority Stat Bar */}
+            {/* 4 Core Marketplace Principles Bar (Replacing Invented Statistics) */}
             <section className="brand-stat-bar py-xl">
                 <div className="container">
-                    <div className="stat-bar-grid">
+                    <div className="stat-bar-grid p2p-pillars-grid">
                         <div className="brand-stat-item">
-                            <span className="stat-number-gold">50,000+</span>
-                            <span className="stat-text-label">Designer Rentals Delivered</span>
+                            <div className="pillar-icon-box">
+                                <MapPin size={22} className="gold-sparkle" />
+                            </div>
+                            <span className="pillar-title">HYPERLOCAL</span>
+                            <span className="pillar-desc">Find outfits within your immediate student community.</span>
                         </div>
                         <div className="stat-divider-line"></div>
                         <div className="brand-stat-item">
-                            <span className="stat-number-gold">₹15 Cr+</span>
-                            <span className="stat-text-label">Curated Closet Inventory</span>
+                            <div className="pillar-icon-box">
+                                <Users size={22} className="gold-sparkle" />
+                            </div>
+                            <span className="pillar-title">PEER-TO-PEER</span>
+                            <span className="pillar-desc">Rent directly from other students. Vogue Loop holds zero inventory.</span>
                         </div>
                         <div className="stat-divider-line"></div>
                         <div className="brand-stat-item">
-                            <span className="stat-number-gold">100%</span>
-                            <span className="stat-text-label">Eco Sanitized & Inspected</span>
+                            <div className="pillar-icon-box">
+                                <Tag size={22} className="gold-sparkle" />
+                            </div>
+                            <span className="pillar-title">AFFORDABLE</span>
+                            <span className="pillar-desc">Wear high-value occasion wear starting at ₹599 without buying new.</span>
                         </div>
                         <div className="stat-divider-line"></div>
                         <div className="brand-stat-item">
-                            <span className="stat-number-gold">4.9 ★</span>
-                            <span className="stat-text-label">Luxury Member Rating</span>
+                            <div className="pillar-icon-box">
+                                <Repeat size={22} className="gold-sparkle" />
+                            </div>
+                            <span className="pillar-title">CIRCULAR</span>
+                            <span className="pillar-desc">Put idle PG wardrobes to work and keep outfits in circulation.</span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Couture Designer Showcase */}
+            {/* Student Occasion Ticker (Replacing Unrealistic Designer Strip) */}
             <section className="designer-showcase-bar py-lg">
                 <div className="container text-center">
-                    <span className="designer-kicker">FEATURED COUTURE ARCHIVES</span>
+                    <span className="designer-kicker">CURATED FOR STUDENT LIFE</span>
                     <div className="designer-names-row mt-md">
-                        <span>SABYASACHI</span> • <span>MANISH MALHOTRA</span> • <span>ANITA DONGRE</span> • <span>TARUN TAHILIANI</span> • <span>SEEMA GUJRAL</span> • <span>FALGUNI SHANE PEACOCK</span>
+                        <span>COLLEGE FESTS</span> • <span>FAREWELLS</span> • <span>ETHNIC DAYS</span> • <span>PLACEMENTS</span> • <span>PARTIES</span> • <span>BIRTHDAYS</span> • <span>PHOTOSHOOTS</span>
                     </div>
                 </div>
             </section>
 
-            {/* Occasion-First Discovery Section */}
+            {/* Studentized Occasion-First Discovery Section */}
             <section className="occasions-section py-3xl">
                 <div className="container">
                     <div className="section-header-centered">
-                        <span className="section-kicker">CURATED EVENING EDIT</span>
-                        <h2>What are you dressing for?</h2>
-                        <p>Discover outfits tailored for your event's vibe and dress code.</p>
+                        <span className="section-kicker">WHAT ARE YOU DRESSING FOR?</span>
+                        <h2>Campus Occasions & Events</h2>
+                        <p>Explore outfits listed by students nearby for every moment on your university calendar.</p>
                     </div>
 
                     <div className="occasions-grid mt-2xl">
@@ -222,11 +240,11 @@ const Home = () => {
                 <div className="container">
                     <div className="section-header">
                         <div>
-                            <span className="section-kicker">EDITOR'S PICK</span>
-                            <h2>Featured Evening Outfits</h2>
+                            <span className="section-kicker">VERIFIED STUDENT CLOSETS</span>
+                            <h2>Outfits Available Near You</h2>
                         </div>
                         <Link to="/browse" className="view-all-link">
-                            View All Outfits <ArrowRight size={16} />
+                            Explore All Nearby Outfits <ArrowRight size={16} />
                         </Link>
                     </div>
 
@@ -238,57 +256,123 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Simple 4-Step Homepage Lifecycle Section */}
+            {/* Two-Sided Marketplace Lifecycle: How Vogue Loop Works */}
             <section id="how-it-works" className="how-it-works-section py-3xl">
                 <div className="container">
                     <div className="section-header-centered">
-                        <span className="section-kicker">SEAMLESS RENTAL LIFECYCLE</span>
-                        <h2>How VogueLoop Works</h2>
-                        <p>Rent luxury fashion in 4 simple steps with complete peace of mind.</p>
+                        <span className="section-kicker">HOW THE PLATFORM WORKS</span>
+                        <h2>A Shared Wardrobe for Your University</h2>
+                        <p>Vogue Loop facilitates secure, student-to-student rentals with transparent trust and safety.</p>
+
+                        {/* Interactive Renter/Lender Flow Switcher */}
+                        <div className="flow-switcher-pills mt-lg">
+                            <button
+                                type="button"
+                                className={`flow-pill ${howItWorksTab === 'renter' ? 'active' : ''}`}
+                                onClick={() => setHowItWorksTab('renter')}
+                            >
+                                How to Rent
+                            </button>
+                            <button
+                                type="button"
+                                className={`flow-pill ${howItWorksTab === 'lender' ? 'active' : ''}`}
+                                onClick={() => setHowItWorksTab('lender')}
+                            >
+                                How to List & Earn
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="simple-lifecycle-grid mt-2xl">
-                        <div className="lifecycle-step-card">
-                            <div className="lifecycle-step-num">01</div>
-                            <h3>Discover</h3>
-                            <p>Browse designer dresses, select your size, and choose your rental dates.</p>
-                        </div>
+                    {howItWorksTab === 'renter' ? (
+                        <div className="simple-lifecycle-grid mt-2xl animate-fade-in">
+                            <div className="lifecycle-step-card">
+                                <div className="lifecycle-step-num">01</div>
+                                <h3>Discover Nearby</h3>
+                                <p>Browse occasion wear listed by verified students living around your campus zone.</p>
+                            </div>
 
-                        <div className="lifecycle-step-card">
-                            <div className="lifecycle-step-num">02</div>
-                            <h3>Rent</h3>
-                            <p>Order safely with refundable security deposit protection and doorstep delivery.</p>
-                        </div>
+                            <div className="lifecycle-step-card">
+                                <div className="lifecycle-step-num">02</div>
+                                <h3>Request & Book</h3>
+                                <p>Select your dates and check exact garment measurements with a refundable security deposit.</p>
+                            </div>
 
-                        <div className="lifecycle-step-card">
-                            <div className="lifecycle-step-num">03</div>
-                            <h3>Wear</h3>
-                            <p>Look incredible at your wedding, party, or celebration without retail price commitment.</p>
-                        </div>
+                            <div className="lifecycle-step-card">
+                                <div className="lifecycle-step-num">03</div>
+                                <h3>Campus Handover</h3>
+                                <p>Meet at convenient, safe public campus spots (e.g. Main Campus Gate 1 or Student Center) to receive the outfit.</p>
+                            </div>
 
-                        <div className="lifecycle-step-card">
-                            <div className="lifecycle-step-num">04</div>
-                            <h3>Return</h3>
-                            <p>Pack the dress in the included return bag. Courier picks up. Cleaning is on us!</p>
+                            <div className="lifecycle-step-card">
+                                <div className="lifecycle-step-num">04</div>
+                                <h3>Wear & Return</h3>
+                                <p>Look amazing at your event and return the garment as agreed to receive your full deposit refund.</p>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="simple-lifecycle-grid mt-2xl animate-fade-in">
+                            <div className="lifecycle-step-card">
+                                <div className="lifecycle-step-num">01</div>
+                                <h3>List Your Outfit</h3>
+                                <p>Snap 3 photos of an unused outfit in your closet, add measurements, and get suggested pricing.</p>
+                            </div>
+
+                            <div className="lifecycle-step-card">
+                                <div className="lifecycle-step-num">02</div>
+                                <h3>Accept Request</h3>
+                                <p>Review incoming booking requests from verified campus students and confirm your available dates.</p>
+                            </div>
+
+                            <div className="lifecycle-step-card">
+                                <div className="lifecycle-step-num">03</div>
+                                <h3>Hand Over Safely</h3>
+                                <p>Exchange the outfit at a recognizable public meeting point with pre-rental condition photos.</p>
+                            </div>
+
+                            <div className="lifecycle-step-card">
+                                <div className="lifecycle-step-num">04</div>
+                                <h3>Earn Income</h3>
+                                <p>Collect payout straight to your account once the outfit is safely returned to your wardrobe.</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </section>
+
+            {/* Circular Fashion & Sustainability Section */}
+            <section className="sustainability-section py-2xl">
+                <div className="container">
+                    <div className="sustainability-card">
+                        <div className="sustainability-content">
+                            <span className="badge badge-gold mb-sm">CIRCULAR FASHION IN ACTION</span>
+                            <h2>Wear more. Buy less. Loop fashion.</h2>
+                            <p>
+                                One outfit shouldn't have only one moment. Vogue Loop helps student wardrobes circulate through the campus community instead of leaving beautiful occasion wear sitting unused in PG closets.
+                            </p>
+                        </div>
+                        <div className="sustainability-quote">
+                            <blockquote>
+                                "The most sustainable garment is the one already in your university's closets."
+                            </blockquote>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Lender Callout CTA */}
+            {/* Lender Callout CTA Banner with Realistic Protection */}
             <section className="lender-cta-section py-2xl">
                 <div className="container">
                     <div className="lender-cta-banner">
                         <div className="lender-cta-grid">
                             <div className="lender-cta-content">
-                                <span className="badge badge-gold mb-md">OWNER MARKETPLACE</span>
+                                <span className="badge badge-gold mb-md">STUDENT WARDROBE LENDER</span>
                                 <h2>Turn Your Closet Into Income</h2>
                                 <p>
-                                    Monetize your designer lehengas, sarees, and suits. List your closet archives on VogueLoop with 100% deposit protection and verified renters.
+                                    List occasion wear sitting unused in your wardrobe and earn whenever another student nearby rents it. Zero inventory fees, flexible availability calendar.
                                 </p>
                                 <div className="lender-cta-actions mt-xl">
                                     <Link to="/upload" className="btn btn-lg btn-burgundy">
-                                        List Your Dress Now
+                                        List Your Outfit
                                     </Link>
                                 </div>
                             </div>
@@ -298,22 +382,22 @@ const Home = () => {
                                     <div className="lender-feature-item">
                                         <CheckCircle2 size={20} className="gold-check" />
                                         <div>
-                                            <strong>100% Damage Deposit Cover</strong>
-                                            <span>Full protection against garment loss or stains</span>
+                                            <strong>Refundable Renter Deposit</strong>
+                                            <span>Security deposits encourage responsible student care and protect lenders.</span>
                                         </div>
                                     </div>
                                     <div className="lender-feature-item">
                                         <CheckCircle2 size={20} className="gold-check" />
                                         <div>
-                                            <strong>Doorstep Pickup Included</strong>
-                                            <span>Couriers collect and return garments directly</span>
+                                            <strong>Condition Documentation</strong>
+                                            <span>Pre- and post-rental photo checks verify the outfit's state at handover.</span>
                                         </div>
                                     </div>
                                     <div className="lender-feature-item">
                                         <CheckCircle2 size={20} className="gold-check" />
                                         <div>
-                                            <strong>Earn Up To 85% Per Rental</strong>
-                                            <span>Passive revenue on luxury clothes in your wardrobe</span>
+                                            <strong>Safe Local Meeting Points</strong>
+                                            <span>Suggest recognizable public campus spots for safe and transparent exchanges.</span>
                                         </div>
                                     </div>
                                 </div>

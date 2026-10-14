@@ -1,95 +1,96 @@
+/* ==========================================================================
+   VogueLoop — Simplified Minimalist Footer (Midnight Wine Theme)
+   ========================================================================== */
+
 .footer {
-  background: var(--color-primary);
-  color: #FFFFFF;
-  padding-top: var(--space-3xl);
-  padding-bottom: var(--space-xl);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 0;
+  background: var(--bg-surface, #141A22) !important;
+  color: var(--text-primary, #FAF8F5);
+  padding-top: var(--space-2xl, 40px);
+  padding-bottom: var(--space-xl, 24px);
+  border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  margin-top: auto;
+}
+
+[data-theme="light"] .footer {
+  background: #F4EFEA !important;
+  color: #252525;
+  border-top-color: #E5DED5;
 }
 
 .footer-top {
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: var(--space-3xl);
-  margin-bottom: var(--space-3xl);
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-3xl, 48px);
+  margin-bottom: var(--space-2xl, 36px);
+  align-items: flex-start;
 }
 
 .footer-brand {
   display: flex;
   flex-direction: column;
+  max-width: 480px;
 }
 
 .footer .logo-text-brand {
-  color: #FFFFFF !important;
+  color: var(--text-primary, #FAF8F5) !important;
 }
 
 .footer .logo-text-gold {
-  color: var(--accent-gold) !important;
+  color: var(--accent-gold, #C9A96E) !important;
 }
 
 .footer .logo-sub-tagline {
-  color: var(--accent-gold) !important;
+  color: var(--accent-gold, #C9A96E) !important;
 }
 
-.footer-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  margin-bottom: var(--space-md);
-}
-
-.logo-main {
-  font-family: var(--font-serif);
-  font-size: 1.85rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  letter-spacing: -0.02em;
-}
-
-.logo-badge {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  background: var(--color-gold);
-  color: var(--color-primary-dark);
-  padding: 2px 7px;
-  border-radius: var(--radius-sm);
+[data-theme="light"] .footer .logo-text-brand {
+  color: #1E3A5F !important;
 }
 
 .footer-tagline {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: var(--text-sm);
+  color: var(--text-secondary, #C9C2B9);
+  font-size: var(--text-sm, 13px);
   line-height: 1.6;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md, 16px);
 }
 
-.footer-trust-badge {
+[data-theme="light"] .footer-tagline {
+  color: #746F6A;
+}
+
+.footer-trust-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--color-gold-light);
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-  font-size: var(--text-xs);
+  background: rgba(111, 154, 124, 0.12);
+  border: 1px solid rgba(111, 154, 124, 0.25);
+  color: #98C4A4;
+  padding: 6px 12px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 11px;
   font-weight: 600;
+  width: fit-content;
 }
 
 .footer-links-group {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-xl);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2xl, 36px);
+  justify-content: flex-end;
 }
 
 .footer-col h4 {
-  color: #FFFFFF;
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  font-weight: 600;
-  margin-bottom: var(--space-md);
+  color: var(--text-primary, #FAF8F5);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: var(--text-sm, 14px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md, 14px);
+}
+
+[data-theme="light"] .footer-col h4 {
+  color: #1E3A5F;
 }
 
 .footer-col ul {
@@ -99,61 +100,94 @@
 }
 
 .footer-col li {
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-sm, 8px);
 }
 
 .footer-col a {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: var(--text-sm);
-  transition: color var(--transition-fast);
+  color: var(--text-secondary, #A0AEC0);
+  font-size: var(--text-sm, 13px);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+[data-theme="light"] .footer-col a {
+  color: #746F6A;
 }
 
 .footer-col a:hover {
-  color: var(--color-gold-light);
+  color: var(--accent-gold, #C9A96E) !important;
 }
 
+/* Bottom Bar */
 .footer-bottom {
-  padding-top: var(--space-xl);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-lg, 20px);
+  border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: rgba(255, 255, 255, 0.55);
-  font-size: var(--text-xs);
+  color: var(--text-muted, #848D97);
+  font-size: 12px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+[data-theme="light"] .footer-bottom {
+  border-top-color: #E5DED5;
+  color: #9A9590;
 }
 
 .footer-bottom p {
   margin-bottom: 0;
-  color: inherit;
 }
 
 .footer-bottom-links {
   display: flex;
-  gap: var(--space-lg);
+  align-items: center;
+  gap: 10px;
 }
 
 .footer-bottom-links a {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-secondary, #C9C2B9);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+[data-theme="light"] .footer-bottom-links a {
+  color: #746F6A;
 }
 
 .footer-bottom-links a:hover {
-  color: #FFFFFF;
+  color: var(--accent-gold, #C9A96E);
+  text-decoration: underline;
 }
 
-@media (max-width: 1024px) {
+.footer-dot {
+  opacity: 0.5;
+}
+
+.footer-eco-note {
+  color: #98C4A4;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
   .footer-top {
     grid-template-columns: 1fr;
-    gap: var(--space-2xl);
+    gap: var(--space-xl, 24px);
+  }
+  .footer-links-group {
+    justify-content: flex-start;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 500px) {
   .footer-links-group {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg, 18px);
   }
   .footer-bottom {
     flex-direction: column;
-    gap: var(--space-md);
-    text-align: center;
+    align-items: flex-start;
+    gap: 8px;
   }
 }

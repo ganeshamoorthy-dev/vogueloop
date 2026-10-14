@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { CheckCircle2, Calendar, Package, CreditCard, ArrowLeft, ShieldCheck, Truck, Lock } from 'lucide-react';
+import { CheckCircle2, Calendar, Package, CreditCard, ArrowLeft, ShieldCheck, MapPin, Lock, Info } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useListings } from '../context/ListingsContext';
@@ -31,9 +31,9 @@ const Checkout = () => {
         return (
             <div className="checkout-page">
                 <div className="container py-3xl text-center">
-                    <h2>No Items to Checkout</h2>
-                    <p>Your bag is empty.</p>
-                    <Link to="/browse" className="btn btn-primary mt-md">Browse Collection</Link>
+                    <h2>No Outfits in Your Bag</h2>
+                    <p>Your campus rental bag is currently empty.</p>
+                    <Link to="/browse" className="btn btn-primary mt-md">Browse Campus Outfits</Link>
                 </div>
             </div>
         );
@@ -55,23 +55,23 @@ const Checkout = () => {
                         <div className="success-icon-wrapper">
                             <CheckCircle2 size={56} className="sage-icon" />
                         </div>
-                        <span className="badge badge-gold mb-sm">BOOKING CONFIRMED</span>
-                        <h1>Rental Order #{bookingId}</h1>
+                        <span className="badge badge-gold mb-sm">CAMPUS BOOKING RESERVED</span>
+                        <h1>Rental Booking #{bookingId}</h1>
                         <p className="success-message-text">
-                            Thank you for renting with VogueLoop! Your garment is being prepared for eco-cleaning and quality inspection.
+                            Your reservation is confirmed! Meet your verified student lender at the campus handover point. Security deposit is refundable upon return.
                         </p>
 
-                        {/* Interactive Rental Lifecycle Progress */}
+                        {/* Interactive P2P Rental Lifecycle Progress */}
                         <div className="order-tracking-section mt-xl text-left">
                             <RentalTimeline currentStatus="booked" />
                         </div>
 
                         <div className="success-actions mt-2xl">
                             <Link to="/dashboard" className="btn btn-lg btn-primary">
-                                Track Order in Dashboard
+                                View in Student Dashboard
                             </Link>
                             <Link to="/browse" className="btn btn-lg btn-secondary">
-                                Explore More Dresses
+                                Explore More Campus Outfits
                             </Link>
                         </div>
                     </div>
@@ -83,9 +83,8 @@ const Checkout = () => {
     }
 
     const subtotal = getCartTotal();
-    const depositsTotal = cartItems.reduce((acc, item) => acc + (item.securityDeposit || 1500), 0);
-    const tax = Math.round(subtotal * 0.18); // 18% GST
-    const grandTotal = subtotal + tax + depositsTotal;
+    const depositsTotal = cartItems.reduce((acc, item) => acc + (item.securityDeposit || 800), 0);
+    const grandTotal = subtotal + depositsTotal;
 
     return (
         <div className="checkout-page">
@@ -97,8 +96,8 @@ const Checkout = () => {
 
                 <div className="checkout-page-header">
                     <div>
-                        <span className="section-kicker">SECURE CHECKOUT</span>
-                        <h1>Confirm Your Rental Order</h1>
+                        <span className="section-kicker">CAMPUS P2P BOOKING</span>
+                        <h1>Confirm Your Rental Reservation</h1>
                     </div>
                 </div>
 
@@ -109,11 +108,11 @@ const Checkout = () => {
                             <div className="receipt-header">
                                 <div className="receipt-logo">
                                     <span className="logo-brand">VogueLoop</span>
-                                    <span className="logo-sub">Verified Receipt</span>
+                                    <span className="logo-sub">Student Rental Receipt</span>
                                 </div>
                                 <div className="trust-badge-small">
                                     <ShieldCheck size={15} />
-                                    <span>Verified Rental</span>
+                                    <span>Verified Student P2P</span>
                                 </div>
                             </div>
 
@@ -122,13 +121,13 @@ const Checkout = () => {
                             <div className="receipt-items-list">
                                 <h3>
                                     <Package size={18} className="navy-icon" />
-                                    Garments Reserved ({cartItems.length})
+                                    Campus Outfits Reserved ({cartItems.length})
                                 </h3>
 
                                 {cartItems.map((item) => {
                                     const rawDays = differenceInDays(new Date(item.endDate), new Date(item.startDate));
-                                    const days = rawDays > 0 ? rawDays : 1;
-                                    const itemTotal = item.pricePerDay * days;
+                                    const days = rawDays > 0 ? rawDays : 3;
+                                    const itemPrice = item.rental3DayPrice ? (days <= 3 ? item.rental3DayPrice : Math.round(item.rental3DayPrice + (days - 3) * (item.rental3DayPrice / 3))) : (item.pricePerDay * days);
 
                                     return (
                                         <div key={item.cartId} className="receipt-item-row">
@@ -140,17 +139,26 @@ const Checkout = () => {
                                             />
                                             <div className="receipt-item-details">
                                                 <h4>{item.title}</h4>
-                                                <p className="item-meta">{item.category} • Size: <strong>{item.selectedSize || 'M'}</strong></p>
+                                                <p className="item-meta">
+                                                    {item.category} • Size: <strong>{item.selectedSize || 'M'}</strong>
+                                                </p>
+                                                <p className="item-lender text-xs text-secondary">
+                                                    Lender: <strong>{item.owner || 'Aishwarya R. • Verified Student'}</strong>
+                                                </p>
                                                 <div className="item-dates">
                                                     <Calendar size={13} />
                                                     <span>
-                                                        {format(new Date(item.startDate), 'MMM dd')} — {format(new Date(item.endDate), 'MMM dd, yyyy')} ({days} {days === 1 ? 'day' : 'days'})
+                                                        {format(new Date(item.startDate), 'MMM dd')} — {format(new Date(item.endDate), 'MMM dd, yyyy')} ({days} days)
                                                     </span>
+                                                </div>
+                                                <div className="item-handover-spot text-xs text-muted mt-2xs">
+                                                    <MapPin size={12} className="inline-icon" />
+                                                    <span>Spot: {item.handoverSpot || 'Main Campus Gate 1 / Student Center'}</span>
                                                 </div>
                                             </div>
                                             <div className="receipt-item-price">
-                                                <span>₹{itemTotal.toLocaleString('en-IN')}</span>
-                                                <span className="deposit-sub">Dep: ₹{(item.securityDeposit || 1500).toLocaleString('en-IN')}</span>
+                                                <span>₹{itemPrice.toLocaleString('en-IN')}</span>
+                                                <span className="deposit-sub">Dep: ₹{(item.securityDeposit || 800).toLocaleString('en-IN')}</span>
                                             </div>
                                         </div>
                                     );
@@ -162,16 +170,12 @@ const Checkout = () => {
                             {/* Summary Table */}
                             <div className="receipt-totals-table">
                                 <div className="total-row">
-                                    <span>Rental Fee Subtotal</span>
+                                    <span>Rental Bundle Fee Subtotal</span>
                                     <span>₹{subtotal.toLocaleString('en-IN')}</span>
                                 </div>
                                 <div className="total-row">
-                                    <span>Eco Dry Cleaning & Care</span>
-                                    <span className="text-success font-semibold">Included (₹0)</span>
-                                </div>
-                                <div className="total-row">
-                                    <span>GST (18%)</span>
-                                    <span>₹{tax.toLocaleString('en-IN')}</span>
+                                    <span>Campus Handover Coordination</span>
+                                    <span className="text-success font-semibold">FREE (₹0)</span>
                                 </div>
                                 <div className="total-row">
                                     <span>Refundable Security Deposit</span>
@@ -180,22 +184,22 @@ const Checkout = () => {
                                 <div className="receipt-divider"></div>
                                 <div className="total-row grand-total">
                                     <div>
-                                        <span className="grand-title">Total Pay On Delivery</span>
-                                        <span className="grand-sub">100% deposit refunded upon return</span>
+                                        <span className="grand-title">Total Due at Meetup</span>
+                                        <span className="grand-sub">₹{depositsTotal.toLocaleString('en-IN')} deposit refunded upon safe return</span>
                                     </div>
                                     <span className="grand-amount">₹{grandTotal.toLocaleString('en-IN')}</span>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Rental Protection Terms Card */}
+                        {/* Campus Rental Guidelines */}
                         <div className="terms-card mt-lg">
-                            <h3>Rental Terms & Guarantee</h3>
+                            <h3>Campus Rental & Handover Guidelines</h3>
                             <ul className="terms-list">
-                                <li><strong>100% Cleaned & Ready:</strong> Dry-cleaned and quality-inspected before shipment.</li>
-                                <li><strong>Fit Guarantee:</strong> Free replacement or refund if size does not fit.</li>
-                                <li><strong>Easy Returns:</strong> Doorstep pickup included with pre-paid return packaging.</li>
-                                <li><strong>Deposit Refund:</strong> Security deposit credited back within 24h of return inspection.</li>
+                                <li><strong>Mutual Inspection:</strong> Check fabric, zipper, and measurements with the student lender at the campus meetup spot.</li>
+                                <li><strong>Gentle Care:</strong> Wear with care during your fest or occasion. Please avoid pinning or alteration without lender consent.</li>
+                                <li><strong>Campus Landmark Return:</strong> Return to the student lender at the agreed campus spot on or before your return date.</li>
+                                <li><strong>Instant Deposit Refund:</strong> Your refundable deposit is released immediately once return condition is confirmed.</li>
                             </ul>
                         </div>
                     </div>
@@ -206,24 +210,27 @@ const Checkout = () => {
                             <div className="payment-icon-wrapper">
                                 <CreditCard size={36} className="navy-icon" />
                             </div>
-                            <h3>Payment On Delivery</h3>
-                            <p>Pay upon doorstep delivery via cash, UPI, or credit/debit card.</p>
+                            <h3>Handover Payment (UPI / Cash)</h3>
+                            <p>Pay securely via UPI (Google Pay, PhonePe, Paytm) or cash directly during your campus handover.</p>
 
                             <div className="amount-highlight-box">
-                                <span>Total Payable</span>
+                                <span>Total Payable at Handover</span>
                                 <span className="highlight-amount">₹{grandTotal.toLocaleString('en-IN')}</span>
+                                <span className="deposit-refund-highlight">
+                                    (includes ₹{depositsTotal.toLocaleString('en-IN')} refundable deposit)
+                                </span>
                             </div>
 
                             <button
                                 onClick={handleConfirmOrder}
                                 className="btn btn-lg btn-primary confirm-order-btn"
                             >
-                                Confirm & Reserve Order
+                                Confirm & Reserve Outfit
                             </button>
 
                             <div className="security-guarantee-note mt-md">
                                 <Lock size={14} />
-                                <span>Encrypted & Guaranteed by VogueLoop</span>
+                                <span>Secured by VogueLoop Campus Trust Protocol</span>
                             </div>
                         </div>
                     </div>

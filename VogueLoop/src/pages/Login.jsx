@@ -56,9 +56,10 @@ const Login = () => {
                 <div className="auth-card-wrapper">
                     <div className="auth-card">
                         <div className="auth-header text-center">
-                            <span className="auth-logo-brand">VogueLoop</span>
+                            <span className="auth-logo-brand">VOGUE<span style={{ color: '#D4AF37' }}>LOOP</span></span>
+                            <span className="auth-logo-tagline">Campus P2P Fashion Marketplace</span>
                             <h2>Welcome Back</h2>
-                            <p>Sign in to manage your rentals, wishlist, and outfit listings</p>
+                            <p>Sign in to manage your campus rentals, wishlist, and closet listings</p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="auth-form">

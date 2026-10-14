@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Star, Heart } from 'lucide-react';
+import { Heart, MapPin, CheckCircle2 } from 'lucide-react';
 import { useListings } from '../context/ListingsContext';
 import AvailabilityBadge from './AvailabilityBadge';
 import { handleImageError, FALLBACK_IMAGE } from '../utils/imageFallback';
@@ -15,8 +15,9 @@ const ClothingCard = ({ item }) => {
         toggleWishlist(item.id);
     };
 
-    const threeDayPrice = item.pricePerDay ? Math.round(item.pricePerDay * 3) : 1499;
+    const threeDayPrice = item.rental3DayPrice || (item.pricePerDay ? Math.round(item.pricePerDay * 3) : 799);
     const imageUrl = (item.images && item.images.length > 0) ? item.images[0] : FALLBACK_IMAGE;
+    const sizeDisplay = item.primarySize || (item.sizes && item.sizes.length > 0 ? item.sizes[0] : 'Free Size');
 
     return (
         <div className="clothing-card-wrapper">
@@ -52,26 +53,36 @@ const ClothingCard = ({ item }) => {
                 </div>
 
                 <div className="card-content">
+                    {/* Size & Occasion Row */}
                     <div className="card-category-row">
-                        <span className="card-category">{item.category}</span>
+                        <span className="card-size-badge">Size {sizeDisplay}</span>
                         {item.occasion && <span className="card-occasion-tag">{item.occasion}</span>}
                     </div>
 
+                    {/* Title */}
                     <h3 className="card-title">{item.title}</h3>
 
-                    <div className="card-rating">
-                        <Star size={14} className="star-icon" fill="#C9A96E" color="#C9A96E" />
-                        <span className="rating-score">{item.rating || '4.8'}</span>
-                        <span className="rating-count">({item.reviews || 12})</span>
+                    {/* Hyperlocal Proximity & Lender Info */}
+                    <div className="card-location-row">
+                        <span className="card-location-text">
+                            <MapPin size={13} className="pin-icon" />
+                            {item.locality || 'University Hub'} • {item.distanceKm ? `${item.distanceKm} km away` : 'Near Campus'}
+                        </span>
                     </div>
 
+                    <div className="card-lender-indicator">
+                        <CheckCircle2 size={13} className="sage-check" />
+                        <span>Listed by <strong>{item.owner || 'Verified Student'}</strong></span>
+                    </div>
+
+                    {/* Price & Duration */}
                     <div className="card-footer">
                         <div className="card-price-group">
-                            <span className="price-amount">₹{item.pricePerDay}</span>
-                            <span className="price-unit">/day</span>
+                            <span className="price-amount">₹{threeDayPrice}</span>
+                            <span className="price-unit">/ 3 days</span>
                         </div>
-                        <div className="price-period-est">
-                            ₹{threeDayPrice} / 3 days
+                        <div className="price-deposit-note">
+                            + ₹{item.securityDeposit || 700} refundable deposit
                         </div>
                     </div>
                 </div>

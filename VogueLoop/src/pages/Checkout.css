@@ -255,6 +255,13 @@
   color: var(--color-text-primary) !important;
 }
 
+.deposit-refund-highlight {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-accent-gold, #D4AF37);
+  margin-top: 4px;
+}
+
 .confirm-order-btn {
   width: 100%;
   padding: 1.05rem;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
     Star, ShoppingBag, ChevronLeft, ChevronRight, Heart,
-    ShieldCheck, Sparkles, Truck, CheckCircle2, UserCheck, Lock, ChevronDown, HelpCircle, FileText, RefreshCw
+    ShieldCheck, Sparkles, CheckCircle2, UserCheck, Lock, ChevronDown, HelpCircle, FileText, RefreshCw, MapPin, Ruler
 } from 'lucide-react';
 import { useListings } from '../context/ListingsContext';
 import { useCart } from '../context/CartContext';
@@ -25,11 +25,11 @@ const ProductDetail = () => {
 
     const item = getListingById(id);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [selectedSize, setSelectedSize] = useState(item?.sizes ? item.sizes[0] : 'M');
+    const [selectedSize, setSelectedSize] = useState(item?.primarySize || (item?.sizes ? item.sizes[0] : 'M'));
     const [rentalDates, setRentalDates] = useState({ start: null, end: null });
 
     // Accordion state (default open first FAQ item)
-    const [openFaq, setOpenFaq] = useState('description');
+    const [openFaq, setOpenFaq] = useState('measurements');
 
     if (!item) {
         return (
@@ -37,9 +37,9 @@ const ProductDetail = () => {
                 <div className="container py-3xl text-center">
                     <div className="not-found-card">
                         <h2>Outfit Not Found</h2>
-                        <p>The dress you are looking for may have been rented or removed.</p>
+                        <p>The outfit you are looking for may have been rented or removed by the student lender.</p>
                         <button onClick={() => navigate('/browse')} className="btn btn-primary mt-md">
-                            Browse Collection
+                            Browse Campus Outfits
                         </button>
                     </div>
                 </div>
@@ -51,6 +51,7 @@ const ProductDetail = () => {
     const liked = isInWishlist(item.id);
     const itemImages = (item.images && item.images.length > 0) ? item.images : [FALLBACK_IMAGE];
     const mainImageUrl = itemImages[currentImageIndex] || itemImages[0] || FALLBACK_IMAGE;
+    const threeDayPrice = item.rental3DayPrice || 799;
 
     const handleDateChange = (startDate, endDate) => {
         setRentalDates({ start: startDate, end: endDate });
@@ -58,13 +59,14 @@ const ProductDetail = () => {
 
     const handleAddToCart = () => {
         if (!isAuthenticated) {
-            login({ id: 1, name: 'Guest Renter', email: 'guest@vogueloop.com', role: 'customer' });
+            login({ id: 1, name: 'Student Renter', email: 'student@campus.edu', role: 'customer' });
         }
 
         addToCart(
             {
                 ...item,
                 selectedSize,
+                pricePerDay: Math.round(threeDayPrice / 3),
             },
             rentalDates.start,
             rentalDates.end
@@ -95,7 +97,7 @@ const ProductDetail = () => {
                         Back to Outfits
                     </button>
                     <span className="breadcrumb-separator">/</span>
-                    <Link to="/browse">Browse</Link>
+                    <Link to="/browse">Campus Outfits</Link>
                     <span className="breadcrumb-separator">/</span>
                     <span className="breadcrumb-current">{item.title}</span>
                 </div>
@@ -149,19 +151,19 @@ const ProductDetail = () => {
                             </div>
                         )}
 
-                        {/* Minimal 3-Icon Trust Bar */}
+                        {/* P2P Trust & Meetup Strip */}
                         <div className="gallery-trust-strip mt-md">
                             <div className="trust-strip-item">
                                 <CheckCircle2 size={14} className="sage-icon" />
-                                <span>100% Fit Guarantee</span>
+                                <span>Verified Student Listing</span>
                             </div>
                             <div className="trust-strip-item">
-                                <Sparkles size={14} className="gold-sparkle" />
-                                <span>Sanitized Dry Clean</span>
+                                <ShieldCheck size={14} className="gold-sparkle" />
+                                <span>Refundable Deposit</span>
                             </div>
                             <div className="trust-strip-item">
-                                <Truck size={14} className="navy-icon" />
-                                <span>Free Doorstep Return</span>
+                                <MapPin size={14} className="navy-icon" />
+                                <span>Campus Handover</span>
                             </div>
                         </div>
                     </div>
@@ -170,40 +172,45 @@ const ProductDetail = () => {
                     <div className="product-info-panel">
                         {/* Status Badges Row */}
                         <div className="product-badges-row mb-xs">
-                            <AvailabilityBadge available={item.available !== false} text="Available for Rent" />
-                            <TrustBadge type="verified" text="Verified Lender" />
+                            <AvailabilityBadge available={item.available !== false} text="Available to Rent" />
+                            <TrustBadge type="verified" text="Verified Student Lender" />
                             {item.condition && <span className="badge badge-gold">{item.condition}</span>}
                         </div>
 
-                        {/* Title & Category Header */}
+                        {/* Title & Occasion Header */}
                         <div className="product-title-group">
                             <span className="product-category-label">
-                                {item.category} • {item.occasion || 'Special Occasion'}
+                                {item.category} • {item.occasion || 'Campus Event'}
                             </span>
                             <h1 className="product-title">{item.title}</h1>
                         </div>
 
-                        {/* Rating Bar */}
-                        <div className="product-rating-bar">
-                            <div className="rating-stars">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star key={i} size={14} fill="#C9A96E" color="#C9A96E" />
-                                ))}
+                        {/* Lender & Proximity Verification Card */}
+                        <div className="lender-identity-box mb-md">
+                            <div className="lender-id-avatar">
+                                <UserCheck size={18} />
                             </div>
-                            <span className="rating-value">{item.rating || '4.9'}</span>
-                            <span className="rating-count">({item.reviews || 28} verified renter reviews)</span>
+                            <div className="lender-id-text">
+                                <div className="lender-name-row">
+                                    <strong>Listed by {item.owner || 'Verified Student'}</strong>
+                                    <span className="student-badge-pill">✓ Verified Student</span>
+                                </div>
+                                <span className="lender-locality-sub">
+                                    <MapPin size={12} className="pin-icon" />
+                                    {item.locality || 'University Hub'} • {item.distanceKm ? `${item.distanceKm} km from campus` : 'Near Campus'}
+                                </span>
+                            </div>
                         </div>
 
-                        {/* Pricing & Retail Comparison Box */}
+                        {/* Pricing Box: 3-Day Student Bundle & Original Price */}
                         <div className="product-pricing-box">
                             <div className="price-main">
-                                <span className="price-number">₹{item.pricePerDay}</span>
-                                <span className="price-per">/ day</span>
+                                <span className="price-number">₹{threeDayPrice}</span>
+                                <span className="price-per">/ 3-day rental</span>
                             </div>
-                            {item.retailValue && (
+                            {item.originalPurchasePrice && (
                                 <div className="retail-comparison">
-                                    <span>Est. Retail Value: <strong>₹{item.retailValue.toLocaleString('en-IN')}</strong></span>
-                                    <span className="savings-badge">Save ~90%</span>
+                                    <span>Buying new: approx. <strong>₹{item.originalPurchasePrice.toLocaleString('en-IN')}</strong> / Renting: <strong>₹{threeDayPrice}</strong></span>
                                 </div>
                             )}
                         </div>
@@ -211,17 +218,11 @@ const ProductDetail = () => {
                         {/* Short Description */}
                         <p className="product-short-desc">{item.description}</p>
 
-                        {/* Lender Quick Verification Bar */}
-                        <div className="lender-quick-bar mb-lg">
-                            <UserCheck size={16} className="navy-icon" />
-                            <span>Listed by <strong>{item.owner}</strong> • Verified Lender (99% Response Rate)</span>
-                        </div>
-
                         {/* Size Selection Section */}
                         <div className="size-selector-section">
                             <div className="size-header">
-                                <label className="form-label">Select Size</label>
-                                <span className="fit-note">Fits true to size</span>
+                                <label className="form-label">Available Size</label>
+                                <span className="fit-note">See measurements below for exact fit</span>
                             </div>
                             <div className="size-options-grid">
                                 {item.sizes ? item.sizes.map((size) => (
@@ -237,11 +238,30 @@ const ProductDetail = () => {
                             </div>
                         </div>
 
+                        {/* Detailed Measurements Pill Box */}
+                        {item.measurements && (
+                            <div className="measurements-summary-box mb-lg">
+                                <div className="measurements-header">
+                                    <Ruler size={14} className="gold-sparkle" />
+                                    <span>Garment Measurements (Inches)</span>
+                                </div>
+                                <div className="measurements-tags-grid">
+                                    {Object.entries(item.measurements).map(([key, val]) => (
+                                        <div key={key} className="measurement-tag">
+                                            <span className="measurement-key">{key.replace(/([A-Z])/g, ' $1')}:</span>
+                                            <span className="measurement-val">{val}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         {/* Rental Date Selection */}
                         <DateRangePicker
                             onDateChange={handleDateChange}
-                            pricePerDay={item.pricePerDay}
-                            securityDeposit={item.securityDeposit || 1500}
+                            rental3DayPrice={threeDayPrice}
+                            securityDeposit={item.securityDeposit || 800}
+                            handoverSpot={item.handoverSpot || 'Main Campus Gate 1 / Student Center'}
                         />
 
                         {/* Primary Action Button */}
@@ -250,69 +270,98 @@ const ProductDetail = () => {
                             onClick={handleAddToCart}
                         >
                             <ShoppingBag size={18} />
-                            Rent This Outfit
+                            Request to Rent Outfit
                         </button>
 
                         <p className="checkout-guarantee-note mt-xs">
-                            <Lock size={13} /> 100% Risk-Free Booking • Free Cancellations 48h before delivery
+                            <Lock size={13} /> Refundable deposit returned within 24h of return check
                         </p>
                     </div>
                 </div>
 
-                {/* Dedicated Lower FAQ & Policy Accordion Section */}
+                {/* Lower FAQ & Rental Policy Accordion Section */}
                 <div className="product-faq-section mt-3xl">
                     <div className="faq-section-header">
                         <HelpCircle size={20} className="gold-sparkle" />
-                        <h2>Outfit Details & Rental FAQs</h2>
+                        <h2>Outfit Specifications & Student Rental FAQs</h2>
                     </div>
 
                     <div className="faq-accordion-container">
-                        {/* FAQ 1: Description & Style Notes */}
-                        <div className={`faq-accordion-item ${openFaq === 'description' ? 'open' : ''}`}>
+                        {/* FAQ 1: Fit & Measurements */}
+                        <div className={`faq-accordion-item ${openFaq === 'measurements' ? 'open' : ''}`}>
                             <button
                                 type="button"
                                 className="faq-accordion-header"
-                                onClick={() => toggleFaq('description')}
+                                onClick={() => toggleFaq('measurements')}
                             >
                                 <div className="faq-header-title">
-                                    <FileText size={17} className="burgundy-icon" />
-                                    <span>Outfit Details & Styling Specifications</span>
-                                </div>
-                                <ChevronDown size={18} className="faq-chevron" />
-                            </button>
-                            <div className="faq-accordion-body">
-                                <div className="faq-inner-content">
-                                    <p>{item.description}</p>
-                                    <p className="mb-0 text-secondary">
-                                        Crafted with premium fabrics, intricate hand-embroidery, and durable inner lining for maximum comfort during long events.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* FAQ 2: Lender Verification */}
-                        <div className={`faq-accordion-item ${openFaq === 'lender' ? 'open' : ''}`}>
-                            <button
-                                type="button"
-                                className="faq-accordion-header"
-                                onClick={() => toggleFaq('lender')}
-                            >
-                                <div className="faq-header-title">
-                                    <UserCheck size={17} className="burgundy-icon" />
-                                    <span>Lender Verification & Authenticity Guarantee</span>
+                                    <Ruler size={17} className="burgundy-icon" />
+                                    <span>Exact Fit & Alteration Policy</span>
                                 </div>
                                 <ChevronDown size={18} className="faq-chevron" />
                             </button>
                             <div className="faq-accordion-body">
                                 <div className="faq-inner-content">
                                     <p>
-                                        Listed by verified wardrobe lender <strong>{item.owner}</strong>. Every listing on VogueLoop undergoes strict identity verification, physical condition checks, and authenticity validation before approval.
+                                        Student occasion wear is peer-owned. We provide verified tape measurements (chest/bust, waist, length, and alteration allowance) so you can compare against your own clothes before renting.
+                                    </p>
+                                    <p className="mb-0 text-secondary">
+                                        <strong>Fit Swap Guarantee:</strong> If the outfit does not match the lender's provided measurements at handover, notify us immediately for a full credit refund or alternate outfit replacement.
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        {/* FAQ 3: Dry Cleaning & Returns */}
+                        {/* FAQ 2: Handover & Safe Meeting Points */}
+                        <div className={`faq-accordion-item ${openFaq === 'handover' ? 'open' : ''}`}>
+                            <button
+                                type="button"
+                                className="faq-accordion-header"
+                                onClick={() => toggleFaq('handover')}
+                            >
+                                <div className="faq-header-title">
+                                    <MapPin size={17} className="burgundy-icon" />
+                                    <span>How does the campus handover work?</span>
+                                </div>
+                                <ChevronDown size={18} className="faq-chevron" />
+                            </button>
+                            <div className="faq-accordion-body">
+                                <div className="faq-inner-content">
+                                    <p>
+                                        To protect student privacy, exact private residential addresses are not published. Handovers are scheduled at recognizable, safe public meeting points near campus (e.g. <strong>{item.handoverSpot || 'Main Campus Gate 1 / Student Center'}</strong>).
+                                    </p>
+                                    <p className="mb-0 text-secondary">
+                                        Both students take a quick photo of the garment condition during handover to ensure mutual clarity.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* FAQ 3: Security Deposit & Return */}
+                        <div className={`faq-accordion-item ${openFaq === 'deposit' ? 'open' : ''}`}>
+                            <button
+                                type="button"
+                                className="faq-accordion-header"
+                                onClick={() => toggleFaq('deposit')}
+                            >
+                                <div className="faq-header-title">
+                                    <ShieldCheck size={17} className="burgundy-icon" />
+                                    <span>Refundable Security Deposit & Return Process</span>
+                                </div>
+                                <ChevronDown size={18} className="faq-chevron" />
+                            </button>
+                            <div className="faq-accordion-body">
+                                <div className="faq-inner-content">
+                                    <ul className="faq-bullet-list">
+                                        <li>Your security deposit (<strong>₹{item.securityDeposit || 800}</strong>) is held safely by Vogue Loop during the rental period.</li>
+                                        <li>Return the outfit to the lender on your agreed return date in the same condition.</li>
+                                        <li>Once the lender confirms safe receipt, your security deposit is released back to your original payment method.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* FAQ 4: Garment Care */}
                         <div className={`faq-accordion-item ${openFaq === 'care' ? 'open' : ''}`}>
                             <button
                                 type="button"
@@ -321,38 +370,14 @@ const ProductDetail = () => {
                             >
                                 <div className="faq-header-title">
                                     <Sparkles size={17} className="burgundy-icon" />
-                                    <span>Sanitization, Eco Dry Cleaning & Doorstep Returns</span>
-                                </div>
-                                <ChevronDown size={18} className="faq-chevron" />
-                            </button>
-                            <div className="faq-accordion-body">
-                                <div className="faq-inner-content">
-                                    <ul className="faq-bullet-list">
-                                        <li>Every outfit is sanitized, eco dry-cleaned, and steam-pressed prior to delivery.</li>
-                                        <li>Delivered in a protective luxury garment bag with a pre-printed return courier label.</li>
-                                        <li>No cleaning required upon return — simply pack in the prepaid return bag and hand it over to our courier partner.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* FAQ 4: Size & Fit Exchange */}
-                        <div className={`faq-accordion-item ${openFaq === 'fit' ? 'open' : ''}`}>
-                            <button
-                                type="button"
-                                className="faq-accordion-header"
-                                onClick={() => toggleFaq('fit')}
-                            >
-                                <div className="faq-header-title">
-                                    <RefreshCw size={17} className="burgundy-icon" />
-                                    <span>What if the outfit doesn't fit?</span>
+                                    <span>Garment Hygiene & Care Standards</span>
                                 </div>
                                 <ChevronDown size={18} className="faq-chevron" />
                             </button>
                             <div className="faq-accordion-body">
                                 <div className="faq-inner-content">
                                     <p className="mb-0">
-                                        VogueLoop offers a <strong>100% Fit Guarantee</strong>. If your outfit arrives and does not fit as described, notify us within 24 hours of delivery for a free immediate replacement exchange or full credit refund.
+                                        All student lenders agree to provide garments clean, sanitized, and steam-pressed prior to handover. Normal wear and tear is expected, but please treat rented outfits with care as you would a friend's wardrobe.
                                     </p>
                                 </div>
                             </div>
@@ -360,45 +385,25 @@ const ProductDetail = () => {
                     </div>
                 </div>
 
-                {/* Verified Renter Reviews Section */}
+                {/* Pre-Launch Community Reviews Section */}
                 <div className="reviews-section mt-3xl">
                     <div className="section-header">
-                        <h2>Verified Renter Reviews ({item.reviews || 28})</h2>
+                        <h2>Community Ratings & Feedback</h2>
                     </div>
 
-                    <div className="reviews-grid">
-                        <div className="review-card">
-                            <div className="review-header">
-                                <div className="reviewer-info">
-                                    <strong>Ananya M.</strong>
-                                    <span className="review-date">Rented for Wedding • 2 weeks ago</span>
-                                </div>
-                                <div className="rating-stars">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star key={i} size={14} fill="#C9A96E" color="#C9A96E" />
-                                    ))}
-                                </div>
-                            </div>
-                            <p className="review-text">
-                                "Absoutely stunning outfit! It arrived in immaculate condition, smelled fresh, and fitted perfectly. Received so many compliments at my cousin's wedding!"
-                            </p>
+                    <div className="prelaunch-reviews-card">
+                        <div className="prelaunch-badge">
+                            <Sparkles size={16} className="gold-sparkle" />
+                            <span>CAMPUS COMMUNITY PILOT PROTOTYPE</span>
                         </div>
-
-                        <div className="review-card">
-                            <div className="review-header">
-                                <div className="reviewer-info">
-                                    <strong>Siddharth K.</strong>
-                                    <span className="review-date">Rented for Reception • 1 month ago</span>
-                                </div>
-                                <div className="rating-stars">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star key={i} size={14} fill="#C9A96E" color="#C9A96E" />
-                                    ))}
-                                </div>
-                            </div>
-                            <p className="review-text">
-                                "The fabric quality and embroidery detail were top tier. Return process was super smooth with doorstep courier pickup."
-                            </p>
+                        <h3>Verified Student Rental Feedback</h3>
+                        <p>
+                            Reviews from verified students will appear here after completed rentals during the campus pilot. Every transaction features mutual feedback between student lenders and renters to foster community trust.
+                        </p>
+                        <div className="prelaunch-indicators">
+                            <span className="indicator-pill">✓ Identity Verified Lenders</span>
+                            <span className="indicator-pill">✓ Photo Documented Handovers</span>
+                            <span className="indicator-pill">✓ Deposit Protection</span>
                         </div>
                     </div>
                 </div>

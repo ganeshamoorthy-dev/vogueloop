@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Trash2, ShoppingBag, Calendar, ShieldCheck, ArrowRight, Lock } from 'lucide-react';
+import { Trash2, ShoppingBag, Calendar, ShieldCheck, ArrowRight, Lock, MapPin } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useListings } from '../context/ListingsContext';
 import { format, differenceInDays } from 'date-fns';
@@ -20,9 +20,9 @@ const Cart = () => {
                     <div className="empty-cart-card">
                         <ShoppingBag size={56} className="empty-icon" />
                         <h2>Your Rental Bag is Empty</h2>
-                        <p>Explore our designer collections for weddings, receptions, and parties!</p>
+                        <p>Explore student closets near campus for college fests, farewells, ethnic days, and university events!</p>
                         <Link to="/browse" className="btn btn-lg btn-primary mt-md">
-                            Explore Collection
+                            Browse Campus Outfits
                         </Link>
                     </div>
                 </div>
@@ -33,6 +33,7 @@ const Cart = () => {
     }
 
     const subtotal = getCartTotal();
+    const totalDeposits = cartItems.reduce((acc, item) => acc + (item.securityDeposit || 800), 0);
 
     return (
         <div className="cart-page">
@@ -40,11 +41,11 @@ const Cart = () => {
                 {/* Header */}
                 <div className="cart-page-header">
                     <div>
-                        <span className="section-kicker">RENTAL BAG</span>
+                        <span className="section-kicker">CAMPUS RENTAL BAG</span>
                         <h1>Review Your Selection</h1>
                     </div>
                     <button onClick={clearCart} className="btn btn-sm btn-secondary">
-                        Clear Cart
+                        Clear Bag
                     </button>
                 </div>
 
@@ -53,9 +54,10 @@ const Cart = () => {
                     <div className="cart-items-column">
                         {cartItems.map((item) => {
                             const rawDays = differenceInDays(new Date(item.endDate), new Date(item.startDate));
-                            const days = rawDays > 0 ? rawDays : 1;
-                            const itemTotal = item.pricePerDay * days;
-                            const deposit = item.securityDeposit || 1500;
+                            const days = rawDays > 0 ? rawDays : 3;
+                            // Calculate price: standard 3-day bundle or prorated
+                            const itemPrice = item.rental3DayPrice ? (days <= 3 ? item.rental3DayPrice : Math.round(item.rental3DayPrice + (days - 3) * (item.rental3DayPrice / 3))) : (item.pricePerDay * days);
+                            const deposit = item.securityDeposit || 800;
 
                             return (
                                 <div key={item.cartId} className="cart-item-card">
@@ -70,7 +72,7 @@ const Cart = () => {
 
                                     <div className="cart-item-info">
                                         <div className="cart-item-meta">
-                                            <span className="badge badge-sage">✓ Available & Prepared</span>
+                                            <span className="badge badge-sage">✓ Available Near Campus</span>
                                             <span className="item-category-tag">{item.category}</span>
                                         </div>
 
@@ -78,9 +80,14 @@ const Cart = () => {
                                             <Link to={`/product/${item.id}`}>{item.title}</Link>
                                         </h3>
 
+                                        <p className="item-lender-info text-xs text-secondary mb-xs">
+                                            Lender: <strong>{item.owner || 'Aishwarya R. • Verified Student'}</strong>
+                                        </p>
+
                                         <div className="cart-item-attributes">
                                             <span className="attr-pill">Size: <strong>{item.selectedSize || 'M'}</strong></span>
                                             {item.condition && <span className="attr-pill">{item.condition}</span>}
+                                            {item.locality && <span className="attr-pill">📍 {item.locality}</span>}
                                         </div>
 
                                         <div className="cart-item-dates-bar">
@@ -88,14 +95,19 @@ const Cart = () => {
                                             <span className="dates-text">
                                                 {format(new Date(item.startDate), 'MMM dd, yyyy')} — {format(new Date(item.endDate), 'MMM dd, yyyy')}
                                             </span>
-                                            <span className="days-badge">{days} {days === 1 ? 'day' : 'days'}</span>
+                                            <span className="days-badge">{days} days bundle</span>
+                                        </div>
+
+                                        <div className="cart-handover-spot text-xs text-muted mt-xs">
+                                            <MapPin size={13} className="inline-icon" />
+                                            <span>Handover: {item.handoverSpot || 'Main Campus Gate 1 / Student Center'}</span>
                                         </div>
                                     </div>
 
                                     <div className="cart-item-pricing">
                                         <div className="item-price-calc">
-                                            <span className="price-calc-label">₹{item.pricePerDay} × {days} days</span>
-                                            <span className="item-rental-total">₹{itemTotal.toLocaleString('en-IN')}</span>
+                                            <span className="price-calc-label">{days}-Day Rental</span>
+                                            <span className="item-rental-total">₹{itemPrice.toLocaleString('en-IN')}</span>
                                         </div>
                                         <div className="deposit-note">
                                             <span>Deposit: ₹{deposit.toLocaleString('en-IN')} (Refundable)</span>
@@ -103,7 +115,7 @@ const Cart = () => {
                                         <button
                                             onClick={() => removeFromCart(item.cartId)}
                                             className="remove-item-btn"
-                                            title="Remove item"
+                                            title="Remove outfit"
                                         >
                                             <Trash2 size={16} />
                                             <span>Remove</span>
@@ -114,10 +126,10 @@ const Cart = () => {
                         })}
 
                         <div className="cart-trust-reassurance">
-                            <ShieldCheck size={20} className="navy-icon" />
+                            <ShieldCheck size={22} className="navy-icon" />
                             <div>
-                                <h4>Complimentary Dry Cleaning Included</h4>
-                                <p>Return the dress as is. No cleaning or ironing required on your end!</p>
+                                <h4>Hyperlocal Campus Handover & Fair Care</h4>
+                                <p>Meet the verified student lender at a campus landmark. Inspect the garment together. Return gently worn for an immediate full deposit refund.</p>
                             </div>
                         </div>
                     </div>
@@ -129,23 +141,28 @@ const Cart = () => {
 
                             <div className="summary-rows-group">
                                 <div className="summary-row">
-                                    <span>Rental Fee ({cartItems.length} {cartItems.length === 1 ? 'item' : 'items'})</span>
+                                    <span>Rental Fee ({cartItems.length} {cartItems.length === 1 ? 'outfit' : 'outfits'})</span>
                                     <span>₹{subtotal.toLocaleString('en-IN')}</span>
                                 </div>
                                 <div className="summary-row">
-                                    <span>Eco Dry Cleaning</span>
-                                    <span className="text-success font-semibold">FREE</span>
+                                    <span>Campus Handover Coordination</span>
+                                    <span className="text-success font-semibold">FREE (₹0)</span>
                                 </div>
                                 <div className="summary-row">
-                                    <span>Doorstep Delivery & Return</span>
-                                    <span className="text-success font-semibold">FREE</span>
+                                    <span>Refundable Security Deposit</span>
+                                    <span>₹{totalDeposits.toLocaleString('en-IN')}</span>
                                 </div>
 
                                 <div className="summary-divider"></div>
 
                                 <div className="summary-row total-row">
-                                    <span>Subtotal</span>
-                                    <span className="summary-grand-total">₹{subtotal.toLocaleString('en-IN')}</span>
+                                    <div>
+                                        <span>Total Due at Handover</span>
+                                        <span className="deposit-return-note block text-xs text-muted">
+                                            Includes ₹{totalDeposits.toLocaleString('en-IN')} refundable deposit
+                                        </span>
+                                    </div>
+                                    <span className="summary-grand-total">₹{(subtotal + totalDeposits).toLocaleString('en-IN')}</span>
                                 </div>
                             </div>
 
@@ -153,16 +170,16 @@ const Cart = () => {
                                 onClick={() => navigate('/checkout')}
                                 className="btn btn-lg btn-primary checkout-action-btn"
                             >
-                                Proceed to Checkout
+                                Proceed to Campus Booking
                                 <ArrowRight size={18} />
                             </button>
 
                             <p className="checkout-security-text">
-                                <Lock size={13} /> Secure SSL Encrypted Checkout
+                                <Lock size={13} /> Verified Student Peer-to-Peer Booking
                             </p>
 
                             <Link to="/browse" className="continue-shopping-link">
-                                ← Continue Exploring Outfits
+                                ← Continue Exploring Campus Outfits
                             </Link>
                         </div>
                     </div>

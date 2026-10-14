@@ -298,24 +298,112 @@
   margin-top: 2px;
 }
 
-.product-short-desc {
-  font-size: var(--text-sm);
-  line-height: 1.5;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-xs);
+/* Lender Identity Box */
+.lender-identity-box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
 }
 
-.lender-quick-bar {
+.lender-id-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lender-id-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.lender-name-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: var(--text-xs);
+}
+
+.lender-name-row strong {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.student-badge-pill {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--status-success);
+  background: rgba(111, 154, 124, 0.12);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+.lender-locality-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
   color: var(--text-secondary);
+}
+
+/* Measurements Summary Box */
+.measurements-summary-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+}
+
+.measurements-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.measurements-tags-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.measurement-tag {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.measurement-key {
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.measurement-val {
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 /* Size Selector */
 .size-selector-section {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .size-header {
@@ -488,44 +576,64 @@
   margin-bottom: 6px;
 }
 
-/* Reviews Grid & Cards */
-.reviews-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
-}
-
-.review-card {
+/* Pre-Launch Pilot Community Reviews Card */
+.prelaunch-reviews-card {
   background: var(--bg-surface) !important;
   border: 1px solid var(--border) !important;
   border-radius: var(--radius-md);
-  padding: var(--space-xl);
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
   box-shadow: var(--shadow-sm);
+  max-width: 780px;
+  margin: 0 auto;
 }
 
-.review-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+.prelaunch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--accent-gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
   margin-bottom: var(--space-md);
 }
 
-.reviewer-info {
-  display: flex;
-  flex-direction: column;
-  color: var(--text-primary) !important;
+.prelaunch-reviews-card h3 {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
 }
 
-.review-date {
-  font-size: 11px;
-  color: var(--text-secondary) !important;
-}
-
-.review-text {
+.prelaunch-reviews-card p {
+  color: var(--text-secondary);
   font-size: var(--text-sm);
-  color: var(--text-secondary) !important;
-  margin-bottom: 0;
-  font-style: italic;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto var(--space-lg);
+}
+
+.prelaunch-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.indicator-pill {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--status-success);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
 }
 
 @media (max-width: 1024px) {
@@ -534,8 +642,5 @@
   }
   .product-gallery-sticky {
     position: static;
-  }
-  .reviews-grid {
-    grid-template-columns: 1fr;
   }
 }

@@ -72,9 +72,10 @@ const Signup = () => {
                 <div className="auth-card-wrapper">
                     <div className="auth-card">
                         <div className="auth-header text-center">
-                            <span className="auth-logo-brand">VogueLoop</span>
-                            <h2>Create Your Account</h2>
-                            <p>Join India's premier trusted fashion rental marketplace</p>
+                            <span className="auth-logo-brand">VOGUE<span style={{ color: '#D4AF37' }}>LOOP</span></span>
+                            <span className="auth-logo-tagline">Campus P2P Fashion Marketplace</span>
+                            <h2>Create Your Student Account</h2>
+                            <p>Join the verified campus peer-to-peer fashion rental loop</p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="auth-form">
@@ -95,8 +96,8 @@ const Signup = () => {
                                     >
                                         <span className="role-icon">👔</span>
                                         <div className="role-text">
-                                            <strong>Renter</strong>
-                                            <span>Rent designer outfits</span>
+                                            <strong>Student Renter</strong>
+                                            <span>Rent outfits for fests & events</span>
                                         </div>
                                     </button>
 
@@ -107,8 +108,8 @@ const Signup = () => {
                                     >
                                         <span className="role-icon">💼</span>
                                         <div className="role-text">
-                                            <strong>Lender / Owner</strong>
-                                            <span>Earn from your closet</span>
+                                            <strong>Wardrobe Host</strong>
+                                            <span>List outfits you own & earn</span>
                                         </div>
                                     </button>
                                 </div>
@@ -196,7 +197,7 @@ const Signup = () => {
                                     checked={formData.agreeToTerms}
                                     onChange={handleChange}
                                 />
-                                <span>I agree to VogueLoop Terms of Service & Rental Protection Policy</span>
+                                <span>I agree to the <Link to="/policies" target="_blank" className="underline text-gold">VogueLoop Student Terms & Policies</Link></span>
                             </label>
 
                             <button type="submit" className="btn btn-lg btn-primary auth-submit-btn">

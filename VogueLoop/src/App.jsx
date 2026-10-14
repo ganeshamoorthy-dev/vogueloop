@@ -12,6 +12,8 @@ import UploadListing from './pages/UploadListing';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Policies from './pages/Policies';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       <ListingsProvider>
         <CartProvider>
           <Router>
+            <ScrollToTop />
             <div className="app">
               <Navbar />
               <Routes>
@@ -31,6 +34,8 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/policies" element={<Policies />} />
+                <Route path="/terms" element={<Policies />} />
               </Routes>
             </div>
           </Router>

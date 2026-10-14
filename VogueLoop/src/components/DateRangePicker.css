@@ -1,54 +1,117 @@
+/* ==========================================================================
+   VogueLoop — Date Range Picker Component (Dark & Light Theme Engineered)
+   ========================================================================== */
+
 .date-range-picker-card {
-  background: var(--color-surface) !important;
-  border: 1px solid var(--color-border) !important;
-  border-radius: var(--radius-md);
-  padding: var(--space-xl);
-  margin-bottom: var(--space-xl);
+  background: var(--bg-surface, #141A22) !important;
+  border: 1px solid var(--border, #303A46) !important;
+  border-radius: var(--radius-md, 12px);
+  padding: var(--space-xl, 24px);
+  margin-bottom: var(--space-xl, 24px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .picker-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md, 16px);
+  gap: var(--space-md, 16px);
 }
 
 .picker-header-title {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.navy-icon {
-  color: var(--color-brand-primary, #1E3A5F) !important;
+.calendar-accent-icon {
+  color: var(--accent-gold, #C9A96E) !important;
 }
 
 .picker-header-title h3 {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text-primary) !important;
-  margin-bottom: 0;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: var(--text-base, 16px);
+  font-weight: 700;
+  color: var(--text-primary, #FAF8F5) !important;
+  margin: 0;
 }
 
 .availability-status {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--color-success, #6F9A7C) !important;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #98C4A4 !important;
+  background: rgba(111, 154, 124, 0.15);
+  border: 1px solid rgba(111, 154, 124, 0.3);
+  padding: 3px 10px;
+  border-radius: var(--radius-full, 9999px);
 }
 
 .sage-icon {
-  color: var(--color-success, #6F9A7C) !important;
+  color: #98C4A4 !important;
 }
 
+/* ==========================================================================
+   Quick Presets Row
+   ========================================================================== */
+.calendar-presets-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--space-lg, 18px);
+  flex-wrap: wrap;
+}
+
+.presets-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted, #848D97);
+}
+
+.presets-chips-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.preset-chip {
+  background: var(--bg-elevated, #1B222C);
+  border: 1px solid var(--border, #303A46);
+  color: var(--text-secondary, #C9C2B9);
+  border-radius: var(--radius-full, 9999px);
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-chip:hover {
+  border-color: var(--accent-gold, #C9A96E);
+  color: var(--text-primary, #FAF8F5);
+  background: rgba(201, 169, 110, 0.1);
+}
+
+.preset-chip.active {
+  background: linear-gradient(135deg, rgba(122, 38, 58, 0.4) 0%, rgba(30, 58, 95, 0.4) 100%);
+  border-color: var(--accent-gold, #C9A96E);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Date Inputs Grid & Dark Calendar Styling
+   ========================================================================== */
 .date-inputs-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
+  gap: var(--space-md, 16px);
+  margin-bottom: var(--space-md, 16px);
 }
 
 .date-field {
@@ -57,50 +120,192 @@
 }
 
 .date-label {
-  font-size: var(--text-xs);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--color-text-primary) !important;
-  margin-bottom: 4px;
+  color: var(--text-primary, #FAF8F5) !important;
+  margin-bottom: 6px;
+}
+
+.field-icon {
+  color: var(--accent-gold, #C9A96E);
+}
+
+.date-input-wrapper {
+  position: relative;
+  width: 100%;
 }
 
 .date-input {
-  border-radius: var(--radius-sm);
-  background: var(--color-background) !important;
-  color: var(--color-text-primary) !important;
-  border: 1px solid var(--color-border) !important;
+  width: 100%;
+  border-radius: var(--radius-sm, 8px);
+  background: var(--bg-elevated, #1B222C) !important;
+  color: var(--text-primary, #FAF8F5) !important;
+  border: 1px solid var(--border, #303A46) !important;
+  padding: 10px 14px;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+/* Force dark color scheme for native browser date picker popup */
+[data-theme="dark"] .date-input,
+.dark-theme .date-input,
+body.dark-theme .date-input {
+  color-scheme: dark !important;
+  background-color: #171E28 !important;
+  color: #FFFFFF !important;
+  border-color: #384454 !important;
+}
+
+/* High-contrast, visible calendar indicator in dark mode */
+[data-theme="dark"] .date-input::-webkit-calendar-picker-indicator,
+.dark-theme .date-input::-webkit-calendar-picker-indicator,
+body.dark-theme .date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.9) brightness(1.2);
+  opacity: 0.95;
+  padding: 4px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+[data-theme="dark"] .date-input::-webkit-calendar-picker-indicator:hover,
+.dark-theme .date-input::-webkit-calendar-picker-indicator:hover,
+body.dark-theme .date-input::-webkit-calendar-picker-indicator:hover {
+  transform: scale(1.15);
+  filter: invert(0.85) sepia(1) saturate(5) hue-rotate(5deg); /* Golden sparkle on hover */
+  opacity: 1;
+}
+
+/* Light theme overrides */
+[data-theme="light"] .date-input {
+  color-scheme: light !important;
+  background: #FFFFFF !important;
+  color: #252525 !important;
+  border-color: #E5DED5 !important;
+}
+
+[data-theme="light"] .date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: none;
+  opacity: 0.75;
+}
+
+.date-input:focus {
+  border-color: var(--accent-gold, #C9A96E) !important;
+  box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.25);
 }
 
 .field-hint {
   font-size: 11px;
-  color: var(--color-text-secondary) !important;
-  margin-top: 2px;
+  color: var(--text-muted, #848D97) !important;
+  margin-top: 4px;
 }
 
-/* Price Breakdown Box */
+/* ==========================================================================
+   Selected Booking Range Strip
+   ========================================================================== */
+.selected-range-strip {
+  background: linear-gradient(135deg, rgba(30, 58, 95, 0.25) 0%, rgba(122, 38, 58, 0.2) 100%);
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  border-radius: var(--radius-sm, 8px);
+  padding: 8px 14px;
+  margin-bottom: var(--space-md, 14px);
+}
+
+.range-text-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.range-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-gold, #C9A96E);
+}
+
+.range-dates {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* Handover Notice Strip */
+.handover-notice-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elevated, #1B222C);
+  border: 1px solid var(--border, #303A46);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm, 8px);
+  font-size: 12px;
+  color: var(--text-secondary, #C9C2B9);
+  margin-bottom: var(--space-lg, 18px);
+}
+
+.handover-notice-strip strong {
+  color: var(--text-primary, #FAF8F5);
+}
+
+.gold-sparkle {
+  color: var(--accent-gold, #C9A96E);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Price Breakdown Box
+   ========================================================================== */
 .price-breakdown-box {
-  background: var(--color-surface-elevated, var(--color-surface)) !important;
-  border: 1px solid var(--color-border) !important;
-  border-radius: var(--radius-sm);
-  padding: var(--space-lg);
+  background: var(--bg-elevated, #1B222C) !important;
+  border: 1px solid var(--border, #303A46) !important;
+  border-radius: var(--radius-md, 10px);
+  padding: var(--space-lg, 18px);
 }
 
 .breakdown-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary) !important;
-  margin-bottom: var(--space-sm);
+  font-size: 13px;
+  color: var(--text-secondary, #C9C2B9) !important;
+  margin-bottom: var(--space-sm, 10px);
 }
 
 .breakdown-row:last-child {
   margin-bottom: 0;
 }
 
+.font-semibold {
+  font-weight: 600;
+}
+
+.text-primary {
+  color: var(--text-primary, #FAF8F5) !important;
+}
+
+.text-gold {
+  color: var(--accent-gold, #C9A96E) !important;
+}
+
+.text-success {
+  color: #98C4A4 !important;
+}
+
 .breakdown-divider {
   height: 1px;
-  background: var(--color-border);
-  margin: var(--space-md) 0;
+  background: var(--border, #303A46);
+  margin: var(--space-md, 14px) 0;
 }
 
 .total-row {
@@ -113,27 +318,32 @@
 }
 
 .total-title {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 15px;
   font-weight: 700;
-  color: var(--color-text-primary) !important;
+  color: var(--text-primary, #FAF8F5) !important;
 }
 
 .total-subtitle {
   font-size: 11px;
-  color: var(--color-text-secondary) !important;
+  color: var(--text-muted, #848D97) !important;
+  margin-top: 2px;
 }
 
 .total-price-amount {
-  font-family: var(--font-serif);
-  font-size: var(--text-3xl);
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: var(--text-3xl, 28px);
   font-weight: 700;
-  color: var(--color-text-primary) !important;
+  color: var(--accent-gold, #C9A96E) !important;
   line-height: 1;
 }
 
 @media (max-width: 640px) {
   .date-inputs-grid {
     grid-template-columns: 1fr;
+  }
+  .picker-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

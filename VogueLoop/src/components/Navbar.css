@@ -4,44 +4,15 @@
   z-index: 1000;
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-}
-
-.announcement-bar {
-  background: var(--brand-primary);
-  color: #FFFFFF;
-  padding: 6px 0;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-}
-
-.announcement-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.announcement-text {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.gold-sparkle {
-  color: var(--accent-gold);
-}
-
-.announcement-link a {
-  color: var(--accent-gold-light);
-  font-weight: 600;
-  text-decoration: underline;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .navbar {
-  padding: 10px 0;
+  height: 68px;
+  display: flex;
+  align-items: center;
   background: var(--bg-primary);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
   transition: background-color var(--transition-base);
 }
 
@@ -49,7 +20,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-lg);
+  width: 100%;
+  gap: var(--space-xl);
 }
 
 /* Brand Logo */
@@ -65,9 +37,9 @@
   width: 36px;
   height: 36px;
   border-radius: var(--radius-sm);
-  background: radial-gradient(circle at 30% 30%, var(--brand-fashion) 0%, var(--brand-wine) 100%);
-  border: 1px solid var(--accent-gold);
-  color: var(--accent-gold);
+  background: radial-gradient(circle at 30% 30%, var(--brand-fashion, #7A263A) 0%, var(--brand-wine, #4A1224) 100%);
+  border: 1px solid var(--accent-gold, #D4AF37);
+  color: var(--accent-gold, #D4AF37);
   font-family: var(--font-serif);
   font-size: 1.1rem;
   font-weight: 700;
@@ -94,13 +66,13 @@
 }
 
 .logo-text-gold {
-  color: var(--accent-gold);
+  color: var(--accent-gold, #D4AF37);
 }
 
 .logo-sub-tagline {
   font-size: 9px;
   font-weight: 700;
-  color: var(--brand-fashion);
+  color: var(--brand-fashion, #7A263A);
   letter-spacing: 0.2em;
   margin-top: 2px;
 }
@@ -119,15 +91,15 @@
   font-weight: 500;
   color: var(--text-primary) !important;
   transition: all var(--transition-fast);
-  padding: 4px 0;
+  padding: 6px 0;
   position: relative;
   white-space: nowrap;
   text-decoration: none;
-  opacity: 0.88;
+  opacity: 0.85;
 }
 
 .nav-link:hover {
-  color: var(--accent-gold) !important;
+  color: var(--accent-gold, #D4AF37) !important;
   opacity: 1;
 }
 
@@ -144,11 +116,11 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--accent-gold);
+  background: var(--accent-gold, #D4AF37);
   border-radius: 2px;
 }
 
-/* Uncluttered Right Group */
+/* Balanced Right Group */
 .navbar-right-group {
   display: flex;
   align-items: center;
@@ -156,7 +128,7 @@
   flex-shrink: 0;
 }
 
-/* Compact Expandable Search Bar */
+/* Compact Search Bar */
 .navbar-search {
   position: relative;
   display: flex;
@@ -164,15 +136,15 @@
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
-  padding: 4px 12px;
-  width: 140px;
+  padding: 5px 12px;
+  width: 170px;
   transition: all var(--transition-base);
 }
 
 .navbar-search.focused,
 .navbar-search:focus-within {
-  width: 200px;
-  border-color: var(--accent-gold);
+  width: 220px;
+  border-color: var(--accent-gold, #D4AF37);
   background: var(--bg-elevated);
 }
 
@@ -193,17 +165,50 @@
   white-space: nowrap;
 }
 
-/* Actions Group */
+/* Primary "+ List Outfit" Pill Button */
+.nav-list-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--brand-fashion, #7A263A);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(122, 38, 58, 0.25);
+  transition: all var(--transition-fast);
+}
+
+.nav-list-btn:hover {
+  background: #611E2E;
+  border-color: var(--accent-gold, #D4AF37);
+  transform: translateY(-1px);
+}
+
+/* Subtle Vertical Divider */
+.nav-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  margin: 0 2px;
+}
+
+/* Action Icons */
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .theme-toggle-btn {
   background: var(--bg-surface);
   border: 1px solid var(--border);
-  color: var(--accent-gold);
+  color: var(--accent-gold, #D4AF37);
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -216,7 +221,7 @@
 }
 
 .theme-toggle-btn:hover {
-  border-color: var(--accent-gold);
+  border-color: var(--accent-gold, #D4AF37);
   transform: scale(1.05);
 }
 
@@ -229,51 +234,80 @@
   color: var(--text-primary);
   width: 34px;
   height: 34px;
-  border-radius: var(--radius-sm);
-  transition: background var(--transition-fast);
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  transition: all var(--transition-fast);
   text-decoration: none;
   flex-shrink: 0;
 }
 
 .nav-icon-btn:hover {
-  background: var(--bg-surface);
-  color: var(--accent-gold);
+  border-color: var(--accent-gold, #D4AF37);
+  color: var(--accent-gold, #D4AF37);
+  transform: scale(1.05);
 }
 
-.user-name-label {
+.action-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--bg-primary);
+}
+
+.action-badge.navy {
+  background: var(--brand-fashion, #7A263A);
+}
+
+/* User Profile Cluster */
+.nav-user-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-user-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
   font-size: 12px;
   font-weight: 600;
-  white-space: nowrap;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.nav-user-pill:hover {
+  border-color: var(--accent-gold, #D4AF37);
+  color: var(--accent-gold, #D4AF37);
 }
 
 .nav-auth-btn {
   white-space: nowrap;
   padding: 6px 16px;
   font-size: 13px;
+  font-weight: 600;
   border-radius: var(--radius-full);
 }
 
-.action-badge {
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  color: #FFFFFF;
-  font-size: 10px;
-  font-weight: 700;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.action-badge.navy {
-  background: var(--brand-primary);
-}
-
-.action-badge.burgundy {
-  background: var(--brand-fashion);
+.nav-logout-btn {
+  white-space: nowrap;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: var(--radius-full);
 }
 
 .mobile-menu-btn {
@@ -290,24 +324,27 @@
 }
 
 /* Responsive Handling */
-@media (max-width: 1120px) {
+@media (max-width: 1160px) {
   .navbar-search {
-    width: 120px;
+    width: 130px;
   }
   .navbar-search.focused,
   .navbar-search:focus-within {
-    width: 160px;
+    width: 170px;
   }
   .navbar-links {
     gap: var(--space-md);
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 980px) {
   .navbar-search {
     display: none;
   }
   .navbar-links {
+    display: none;
+  }
+  .nav-divider {
     display: none;
   }
   .mobile-menu-btn {
@@ -318,31 +355,52 @@
     display: block;
     padding: var(--space-lg) 0;
     border-top: 1px solid var(--border);
+    background: var(--bg-primary);
+  }
+  .mobile-search-box {
+    margin-bottom: var(--space-md);
   }
   .mobile-nav-links {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
   .mobile-nav-link {
     font-size: var(--text-base);
     font-weight: 500;
     color: var(--text-primary);
-    padding: var(--space-sm) 0;
+    padding: var(--space-xs) 0;
     text-decoration: none;
   }
   .list-highlight {
-    color: var(--brand-fashion);
+    color: var(--brand-fashion, #7A263A);
     font-weight: 700;
   }
   .mobile-logout-btn {
     background: none;
     border: none;
-    color: var(--status-error);
+    color: var(--status-error, #E53E3E);
     font-size: var(--text-base);
     font-weight: 600;
     text-align: left;
     cursor: pointer;
-    padding: var(--space-sm) 0;
+    padding: var(--space-xs) 0;
   }
+
+  .mobile-mode-toggle-wrap {
+    margin-bottom: var(--space-md);
+    width: 100%;
+  }
+
+  .nav-mode-toggle {
+    display: none;
+  }
+}
+
+.mobile-mode-toggle-wrap {
+  margin-bottom: var(--space-md);
+}
+
+.nav-mode-toggle {
+  flex-shrink: 0;
 }

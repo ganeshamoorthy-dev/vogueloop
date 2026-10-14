@@ -1,32 +1,32 @@
-import { ShieldCheck, Sparkles, UserCheck, CreditCard, RotateCcw, Check } from 'lucide-react';
+import { ShieldCheck, Sparkles, UserCheck, Lock, Camera, Star, Check } from 'lucide-react';
 import './TrustLayer.css';
 
 const TrustLayer = ({ compact = false }) => {
   const trustPoints = [
     {
       icon: <UserCheck className="trust-icon" size={22} />,
-      title: 'Verified Owners',
-      description: 'Identity & garment authenticity verified for 100% confidence.',
+      title: 'Verified Community',
+      description: 'Student identity verification creates a safer, accountable campus marketplace.',
+    },
+    {
+      icon: <Lock className="trust-icon" size={22} />,
+      title: 'Secure Rentals',
+      description: 'Refundable security deposits encourage responsible renting and protect lenders.',
+    },
+    {
+      icon: <Camera className="trust-icon" size={22} />,
+      title: 'Condition Check',
+      description: 'Garment condition is photographed & documented before and after every rental.',
     },
     {
       icon: <Sparkles className="trust-icon" size={22} />,
-      title: 'Dry Cleaned',
-      description: 'Sanitized & dry-cleaned using eco-friendly luxury care.',
+      title: 'Care Standards',
+      description: 'Clear garment-care, sanitization, and steam-pressing requirements for all handovers.',
     },
     {
-      icon: <ShieldCheck className="trust-icon" size={22} />,
-      title: 'Quality Checked',
-      description: 'Hand-inspected before every shipment for flawless condition.',
-    },
-    {
-      icon: <CreditCard className="trust-icon" size={22} />,
-      title: 'Secure Payments',
-      description: 'Refundable security deposit protection & encrypted checkout.',
-    },
-    {
-      icon: <RotateCcw className="trust-icon" size={22} />,
-      title: 'Easy Returns',
-      description: 'Pre-paid return packaging with complimentary doorstep pickup.',
+      icon: <Star className="trust-icon" size={22} />,
+      title: 'Ratings & Reviews',
+      description: 'Community trust grows through verified completed rentals and real student feedback.',
     },
   ];
 
@@ -36,7 +36,7 @@ const TrustLayer = ({ compact = false }) => {
         <div className="trust-layer-compact">
           <div className="trust-header-compact">
             <ShieldCheck size={18} className="navy-shield" />
-            <span className="trust-title-compact">Trusted Rental Guarantee</span>
+            <span className="trust-title-compact">Vogue Loop Trust & Safety</span>
           </div>
           <div className="trust-list-compact">
             {trustPoints.map((point, idx) => (
@@ -58,10 +58,10 @@ const TrustLayer = ({ compact = false }) => {
           <div className="trust-banner-header">
             <div className="trust-badge-pill">
               <ShieldCheck size={16} />
-              <span>THE VOGUELOOP GUARANTEE</span>
+              <span>VOGUE LOOP TRUST & SAFETY</span>
             </div>
-            <h2>Trusted Rental Experience</h2>
-            <p>Every outfit on VogueLoop is backed by our strict quality, authenticity, and hygiene standards.</p>
+            <h2>Built for trust on both sides</h2>
+            <p>Connecting student wardrobes safely through student verification, refundable deposits, and documented handovers.</p>
           </div>
 
           <div className="trust-grid">
@@ -73,7 +73,7 @@ const TrustLayer = ({ compact = false }) => {
                 <h3>{point.title}</h3>
                 <p>{point.description}</p>
                 <div className="trust-status">
-                  <span className="sage-check"><Check size={13} inline="true" /> Verified</span>
+                  <span className="sage-check"><Check size={13} inline="true" /> Standard</span>
                 </div>
               </div>
             ))}
