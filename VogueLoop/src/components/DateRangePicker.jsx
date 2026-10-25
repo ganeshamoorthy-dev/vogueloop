@@ -187,7 +187,10 @@ const DateRangePicker = ({
             {formattedDateRange && (
                 <div className="selected-range-strip">
                     <div className="range-text-group">
-                        <span className="range-label">Selected Booking Window:</span>
+                        <span className="range-label">
+                            <Sparkles size={13} className="range-icon" />
+                            Selected Booking Window:
+                        </span>
                         <strong className="range-dates">{formattedDateRange} ({rentalDays} {rentalDays === 1 ? 'day' : 'days'})</strong>
                     </div>
                 </div>

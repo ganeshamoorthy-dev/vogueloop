@@ -644,3 +644,146 @@
     position: static;
   }
 }
+
+
+/* Dual Action Buttons Grid */
+.product-action-buttons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: var(--space-md);
+}
+
+.add-to-bag-btn {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: var(--text-base);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.add-to-bag-btn:hover {
+  border-color: var(--brand-fashion);
+  color: var(--brand-fashion);
+  background: rgba(122, 38, 58, 0.05);
+}
+
+.add-to-bag-btn.btn-success-state {
+  border-color: var(--status-success) !important;
+  color: var(--status-success) !important;
+  background: var(--status-success-bg, rgba(95, 128, 104, 0.15)) !important;
+}
+
+.rent-now-btn {
+  width: 100%;
+  padding: 0.9rem 1.25rem;
+  font-size: var(--text-base);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+}
+
+.rent-now-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Added-to-bag Interactive Feedback Banner */
+.added-to-bag-feedback {
+  background: var(--bg-surface);
+  border: 1px solid var(--status-success);
+  border-left: 4px solid var(--status-success);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  animation: fadeInDown 0.25s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.added-to-bag-feedback .feedback-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.added-to-bag-feedback .feedback-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+}
+
+.added-to-bag-feedback .feedback-link {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--brand-fashion);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.added-to-bag-feedback .feedback-link:hover {
+  color: var(--brand-fashion-hover);
+}
+
+.added-to-bag-feedback .feedback-cta-btn {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--accent-gold);
+  background: rgba(201, 169, 110, 0.15);
+  border: 1px solid var(--accent-gold);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.added-to-bag-feedback .feedback-cta-btn:hover {
+  background: var(--accent-gold);
+  color: #1A1A1A;
+}
+
+@media (max-width: 600px) {
+  .product-action-buttons-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+  .added-to-bag-feedback {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .added-to-bag-feedback .feedback-actions {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+}

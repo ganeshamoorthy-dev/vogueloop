@@ -38,8 +38,8 @@
 }
 
 [data-theme="light"] .auth-card {
-  background: #FFFFFF !important;
-  border-color: #E5DED5 !important;
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
   box-shadow: 0 8px 24px rgba(30, 58, 95, 0.08);
 }
 
@@ -164,9 +164,9 @@
 }
 
 [data-theme="light"] .input.with-icon {
-  background: #FFFFFF !important;
-  color: #252525 !important;
-  border-color: #E5DED5 !important;
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
 }
 
 [data-theme="light"] .input.with-icon:focus {

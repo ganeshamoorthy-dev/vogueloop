@@ -5,7 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:website": "npm --prefix website run dev",
+    "dev:app": "npm --prefix app run dev",
     "build": "vite build",
+    "build:website": "npm --prefix website run build",
+    "build:app": "npm --prefix app run build",
+    "build:all": "npm run build:website && npm run build:app",
     "lint": "eslint .",
     "preview": "vite preview"
   },

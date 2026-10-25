@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { CheckCircle2, Calendar, Package, CreditCard, ArrowLeft, ShieldCheck, MapPin, Lock, Info } from 'lucide-react';
+import { CheckCircle2, Calendar, Package, CreditCard, ArrowLeft, ChevronLeft, ShieldCheck, MapPin, Lock, Info } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useListings } from '../context/ListingsContext';
@@ -89,10 +89,13 @@ const Checkout = () => {
     return (
         <div className="checkout-page">
             <div className="container py-2xl">
-                <button onClick={() => navigate('/cart')} className="back-btn mb-md">
-                    <ArrowLeft size={18} />
-                    Back to Rental Bag
-                </button>
+                {/* Top Return Navigation */}
+                <div className="app-back-navigation mb-md">
+                    <button onClick={() => navigate('/cart')} className="back-nav-btn">
+                        <ChevronLeft size={16} />
+                        <span>Back to Rental Bag</span>
+                    </button>
+                </div>
 
                 <div className="checkout-page-header">
                     <div>

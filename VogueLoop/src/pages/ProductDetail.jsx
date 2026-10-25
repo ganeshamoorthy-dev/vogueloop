@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
     Star, ShoppingBag, ChevronLeft, ChevronRight, Heart,
-    ShieldCheck, Sparkles, CheckCircle2, UserCheck, Lock, ChevronDown, HelpCircle, FileText, RefreshCw, MapPin, Ruler
+    ShieldCheck, Sparkles, CheckCircle2, UserCheck, Lock, ChevronDown, HelpCircle, FileText, RefreshCw, MapPin, Ruler, ArrowRight
 } from 'lucide-react';
 import { useListings } from '../context/ListingsContext';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import DateRangePicker from '../components/DateRangePicker';
 import AvailabilityBadge from '../components/AvailabilityBadge';
-import TrustBadge from '../components/TrustBadge';
 import TrustLayer from '../components/TrustLayer';
 import Footer from '../components/Footer';
 import MobileBottomNav from '../components/MobileBottomNav';
@@ -20,13 +19,14 @@ const ProductDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { getListingById, isInWishlist, toggleWishlist, wishlist } = useListings();
-    const { addToCart } = useCart();
+    const { addToCart, cartItems, itemCount } = useCart();
     const { isAuthenticated, login } = useAuth();
 
     const item = getListingById(id);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [selectedSize, setSelectedSize] = useState(item?.primarySize || (item?.sizes ? item.sizes[0] : 'M'));
     const [rentalDates, setRentalDates] = useState({ start: null, end: null });
+    const [addedToBag, setAddedToBag] = useState(false);
 
     // Accordion state (default open first FAQ item)
     const [openFaq, setOpenFaq] = useState('measurements');
@@ -55,12 +55,16 @@ const ProductDetail = () => {
 
     const handleDateChange = (startDate, endDate) => {
         setRentalDates({ start: startDate, end: endDate });
+        setAddedToBag(false);
     };
 
-    const handleAddToCart = () => {
+    const handleAddToBagOnly = () => {
         if (!isAuthenticated) {
             login({ id: 1, name: 'Student Renter', email: 'student@campus.edu', role: 'customer' });
         }
+
+        const start = rentalDates.start || new Date().toISOString().split('T')[0];
+        const end = rentalDates.end || new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0];
 
         addToCart(
             {
@@ -68,8 +72,29 @@ const ProductDetail = () => {
                 selectedSize,
                 pricePerDay: Math.round(threeDayPrice / 3),
             },
-            rentalDates.start,
-            rentalDates.end
+            start,
+            end
+        );
+
+        setAddedToBag(true);
+    };
+
+    const handleRentNow = () => {
+        if (!isAuthenticated) {
+            login({ id: 1, name: 'Student Renter', email: 'student@campus.edu', role: 'customer' });
+        }
+
+        const start = rentalDates.start || new Date().toISOString().split('T')[0];
+        const end = rentalDates.end || new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0];
+
+        addToCart(
+            {
+                ...item,
+                selectedSize,
+                pricePerDay: Math.round(threeDayPrice / 3),
+            },
+            start,
+            end
         );
 
         navigate('/cart');
@@ -90,16 +115,12 @@ const ProductDetail = () => {
     return (
         <div className="product-detail-page">
             <div className="container py-xl">
-                {/* Back Navigation & Breadcrumb */}
-                <div className="detail-breadcrumb mb-md">
-                    <button onClick={() => navigate(-1)} className="back-btn">
+                {/* Top Return Navigation */}
+                <div className="app-back-navigation mb-md">
+                    <button onClick={() => navigate(-1)} className="back-nav-btn">
                         <ChevronLeft size={16} />
-                        Back to Outfits
+                        <span>Back to Outfits</span>
                     </button>
-                    <span className="breadcrumb-separator">/</span>
-                    <Link to="/browse">Campus Outfits</Link>
-                    <span className="breadcrumb-separator">/</span>
-                    <span className="breadcrumb-current">{item.title}</span>
                 </div>
 
                 <div className="product-grid">
@@ -173,8 +194,12 @@ const ProductDetail = () => {
                         {/* Status Badges Row */}
                         <div className="product-badges-row mb-xs">
                             <AvailabilityBadge available={item.available !== false} text="Available to Rent" />
-                            <TrustBadge type="verified" text="Verified Student Lender" />
-                            {item.condition && <span className="badge badge-gold">{item.condition}</span>}
+                            {item.condition && (
+                                <span className="badge badge-gold">
+                                    <Sparkles size={12} />
+                                    <span>{item.condition}</span>
+                                </span>
+                            )}
                         </div>
 
                         {/* Title & Occasion Header */}
@@ -230,7 +255,7 @@ const ProductDetail = () => {
                                         key={size}
                                         type="button"
                                         className={`size-pill ${selectedSize === size ? 'active' : ''}`}
-                                        onClick={() => setSelectedSize(size)}
+                                        onClick={() => { setSelectedSize(size); setAddedToBag(false); }}
                                     >
                                         {size}
                                     </button>
@@ -264,14 +289,53 @@ const ProductDetail = () => {
                             handoverSpot={item.handoverSpot || 'Main Campus Gate 1 / Student Center'}
                         />
 
-                        {/* Primary Action Button */}
-                        <button
-                            className="btn btn-lg btn-primary add-to-cart-btn mt-md"
-                            onClick={handleAddToCart}
-                        >
-                            <ShoppingBag size={18} />
-                            Request to Rent Outfit
-                        </button>
+                        {/* Dual Action Buttons: Add to Bag (Keep Browsing) & Rent Now (Fast Booking) */}
+                        <div className="product-action-buttons-grid mt-md">
+                            <button
+                                type="button"
+                                className={`btn btn-lg btn-secondary add-to-bag-btn ${addedToBag ? 'btn-success-state' : ''}`}
+                                onClick={handleAddToBagOnly}
+                            >
+                                {addedToBag ? (
+                                    <>
+                                        <CheckCircle2 size={18} className="success-icon" />
+                                        <span>Added to Bag!</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <ShoppingBag size={18} />
+                                        <span>Add to Bag</span>
+                                    </>
+                                )}
+                            </button>
+
+                            <button
+                                type="button"
+                                className="btn btn-lg btn-fashion rent-now-btn"
+                                onClick={handleRentNow}
+                            >
+                                <span>Rent Now</span>
+                                <ArrowRight size={18} />
+                            </button>
+                        </div>
+
+                        {/* Interactive Multi-Outfit Feedback Banner */}
+                        {addedToBag && (
+                            <div className="added-to-bag-feedback mt-sm">
+                                <div className="feedback-content">
+                                    <CheckCircle2 size={16} className="text-success" />
+                                    <span>Outfit saved to your bag! Rent more or proceed to bag.</span>
+                                </div>
+                                <div className="feedback-actions">
+                                    <Link to="/browse" className="feedback-link">
+                                        + Rent Another Dress
+                                    </Link>
+                                    <Link to="/cart" className="feedback-cta-btn">
+                                        View Bag ({itemCount || cartItems.length}) →
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
 
                         <p className="checkout-guarantee-note mt-xs">
                             <Lock size={13} /> Refundable deposit returned within 24h of return check
@@ -385,28 +449,7 @@ const ProductDetail = () => {
                     </div>
                 </div>
 
-                {/* Pre-Launch Community Reviews Section */}
-                <div className="reviews-section mt-3xl">
-                    <div className="section-header">
-                        <h2>Community Ratings & Feedback</h2>
-                    </div>
 
-                    <div className="prelaunch-reviews-card">
-                        <div className="prelaunch-badge">
-                            <Sparkles size={16} className="gold-sparkle" />
-                            <span>CAMPUS COMMUNITY PILOT PROTOTYPE</span>
-                        </div>
-                        <h3>Verified Student Rental Feedback</h3>
-                        <p>
-                            Reviews from verified students will appear here after completed rentals during the campus pilot. Every transaction features mutual feedback between student lenders and renters to foster community trust.
-                        </p>
-                        <div className="prelaunch-indicators">
-                            <span className="indicator-pill">✓ Identity Verified Lenders</span>
-                            <span className="indicator-pill">✓ Photo Documented Handovers</span>
-                            <span className="indicator-pill">✓ Deposit Protection</span>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <TrustLayer compact={true} />

@@ -9,7 +9,7 @@
               radial-gradient(circle at 20% 70%, rgba(30, 58, 95, 0.25) 0%, rgba(13, 17, 23, 0) 60%),
               var(--bg-surface);
   border-bottom: 1px solid var(--border);
-  padding: var(--space-2xl) 0;
+  padding: var(--space-lg) 0 var(--space-md);
   text-align: center;
 }
 
@@ -38,7 +38,7 @@
 
 .browse-title {
   font-family: var(--font-serif);
-  font-size: var(--text-4xl);
+  font-size: var(--text-3xl);
   font-weight: 700;
   color: var(--text-primary) !important;
   line-height: 1.15;

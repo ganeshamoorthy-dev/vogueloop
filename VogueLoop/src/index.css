@@ -2,15 +2,15 @@
 
 :root {
   /* Light Theme Fallbacks */
-  --bg-primary: #FAF8F5;
-  --bg-surface: #F2ECE5;
-  --bg-elevated: #FFFFFF;
-  --bg-card: #FFFFFF;
-  --border: #E5DED5;
+  --bg-primary: #F4EFEA;
+  --bg-surface: #EAE3D9;
+  --bg-elevated: #FAF7F2;
+  --bg-card: #FAF7F2;
+  --border: #DDD5C7;
 
-  --text-primary: #252525;
-  --text-secondary: #746F6A;
-  --text-muted: #9A9590;
+  --text-primary: #221F1D;
+  --text-secondary: #5D564F;
+  --text-muted: #877E75;
 
   --brand-primary: #1E3A5F;          /* Navy - Trust / Transactions */
   --brand-primary-dark: #142A45;
@@ -516,4 +516,162 @@ select.input {
   .container {
     padding: 0 var(--space-md);
   }
+}
+
+
+/* Explicit Light Theme Enhancements & Form Tokens */
+:root {
+  --bg-surface-elevated: #FAF7F2;
+  --color-surface-elevated: var(--bg-elevated);
+}
+
+[data-theme="dark"], body.dark-theme, html.dark-theme {
+  --bg-surface-elevated: #1B222C;
+  --color-surface-elevated: var(--bg-elevated);
+}
+
+[data-theme="light"], body.light-theme, html.light-theme {
+  --bg-primary: #F4EFEA;
+  --bg-surface: #EAE3D9;
+  --bg-elevated: #FAF7F2;
+  --bg-surface-elevated: #FAF7F2;
+  --bg-card: #FAF7F2;
+  --border: #DDD5C7;
+
+  --color-background: var(--bg-primary);
+  --color-surface: var(--bg-surface);
+  --color-surface-elevated: var(--bg-elevated);
+  --color-surface-card: var(--bg-card);
+  --color-border: var(--border);
+
+  --text-primary: #221F1D;
+  --text-secondary: #5D564F;
+  --text-muted: #877E75;
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+
+/* Unified App Top Back Navigation */
+.app-back-navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 8px 0;
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border);
+}
+
+.back-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: all var(--transition-fast);
+}
+
+.back-nav-btn svg {
+  color: var(--accent-gold);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+/* Light Theme overrides */
+[data-theme="light"] .back-nav-btn,
+body.light-theme .back-nav-btn {
+  background: #FAF7F2;
+  border-color: #DDD5C7;
+  color: #221F1D;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .back-nav-btn svg,
+body.light-theme .back-nav-btn svg {
+  color: var(--brand-fashion);
+}
+
+/* Light Theme Badge Overrides — High Contrast & Tactile Legibility */
+[data-theme="light"] .badge-sage,
+body.light-theme .badge-sage {
+  background: #E8F4EC !important;
+  color: #176535 !important;
+  border: 1px solid #A3D4B2 !important;
+  font-weight: 600;
+}
+
+[data-theme="light"] .badge-gold,
+body.light-theme .badge-gold {
+  background: #FEF6E4 !important;
+  color: #8C5E00 !important;
+  border: 1px solid #E6CA85 !important;
+  font-weight: 600;
+}
+
+[data-theme="light"] .badge-burgundy,
+body.light-theme .badge-burgundy {
+  background: #FDF0F3 !important;
+  color: #7A263A !important;
+  border: 1px solid #E4B4C0 !important;
+  font-weight: 600;
+}
+
+[data-theme="light"] .badge-navy,
+body.light-theme .badge-navy {
+  background: #EFF5FC !important;
+  color: #153B66 !important;
+  border: 1px solid #B8D2EC !important;
+  font-weight: 600;
+}
+
+[data-theme="light"] .badge-error,
+body.light-theme .badge-error {
+  background: #FDECEC !important;
+  color: #B62B2B !important;
+  border: 1px solid #F5B6B6 !important;
+  font-weight: 600;
+}
+
+/* Dark Theme overrides — High Contrast & Luxury Aesthetic */
+[data-theme="dark"] .back-nav-btn,
+body.dark-theme .back-nav-btn {
+  background: #1B222C;
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #FAF8F5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .back-nav-btn svg,
+body.dark-theme .back-nav-btn svg {
+  color: #C9A96E;
+}
+
+/* Hover States */
+.back-nav-btn:hover {
+  background: var(--brand-fashion) !important;
+  border-color: var(--brand-fashion) !important;
+  color: #FFFFFF !important;
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(122, 38, 58, 0.35);
+}
+
+.back-nav-btn:hover svg {
+  color: #FFFFFF !important;
+  transform: translateX(-2px);
 }

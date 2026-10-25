@@ -145,7 +145,7 @@ const Home = () => {
                                 />
 
                                 {/* Floating P2P Product Card */}
-                                <div className="hero-floating-card hero-anim-floating">
+                                <Link to="/product/1" className="hero-floating-card hero-anim-floating" style={{ textDecoration: 'none' }}>
                                     <div className="floating-card-badge">✓ Listed by Aishwarya R. (Verified Student)</div>
                                     <h4 className="floating-card-title">Royal Blue Zari Silk Lehenga</h4>
                                     <p className="floating-card-price">₹799 / 3 days</p>
@@ -153,7 +153,7 @@ const Home = () => {
                                         <MapPin size={12} className="pin-icon" />
                                         <span>University Hub • 0.8 km from campus</span>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     </div>

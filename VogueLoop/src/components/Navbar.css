@@ -265,6 +265,10 @@
 }
 
 .action-badge.navy {
+  background: var(--brand-primary, #1E3A5F);
+}
+
+.action-badge.burgundy {
   background: var(--brand-fashion, #7A263A);
 }
 

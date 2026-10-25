@@ -1,0 +1,94 @@
+.occasion-card {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 230px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  text-decoration: none;
+}
+
+.occasion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brand-fashion);
+}
+
+.occasion-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.occasion-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.occasion-card:hover .occasion-image {
+  transform: scale(1.07);
+}
+
+.occasion-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(13, 17, 23, 0.2) 0%, rgba(13, 17, 23, 0.88) 100%);
+  transition: background var(--transition-base);
+}
+
+.occasion-card:hover .occasion-overlay {
+  background: linear-gradient(180deg, rgba(122, 38, 58, 0.25) 0%, rgba(13, 17, 23, 0.92) 100%);
+}
+
+.occasion-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-lg);
+  color: #FFFFFF;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.occasion-count {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--accent-gold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.occasion-title {
+  color: #FFFFFF !important;
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.occasion-explore {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform var(--transition-fast);
+}
+
+.occasion-card:hover .occasion-explore {
+  transform: translateX(4px);
+  color: var(--accent-gold);
+}

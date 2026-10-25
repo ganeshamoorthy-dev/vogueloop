@@ -15,7 +15,6 @@ const Signup = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        role: 'customer', // 'lender' or 'customer'
         agreeToTerms: false,
     });
 
@@ -54,7 +53,7 @@ const Signup = () => {
             id: Date.now(),
             name: formData.name,
             email: formData.email,
-            role: formData.role,
+            role: 'member',
             createdAt: new Date().toISOString(),
         };
 
@@ -75,7 +74,7 @@ const Signup = () => {
                             <span className="auth-logo-brand">VOGUE<span style={{ color: '#D4AF37' }}>LOOP</span></span>
                             <span className="auth-logo-tagline">Campus P2P Fashion Marketplace</span>
                             <h2>Create Your Student Account</h2>
-                            <p>Join the verified campus peer-to-peer fashion rental loop</p>
+                            <p>One unified account to rent outfits and monetize your own closet</p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="auth-form">
@@ -84,36 +83,6 @@ const Signup = () => {
                                     {error}
                                 </div>
                             )}
-
-                            {/* Role Selection */}
-                            <div className="role-selection-box mb-lg">
-                                <label className="form-label">I want to join as *</label>
-                                <div className="role-options-grid">
-                                    <button
-                                        type="button"
-                                        className={`role-select-card ${formData.role === 'customer' ? 'active' : ''}`}
-                                        onClick={() => setFormData(prev => ({ ...prev, role: 'customer' }))}
-                                    >
-                                        <span className="role-icon">👔</span>
-                                        <div className="role-text">
-                                            <strong>Student Renter</strong>
-                                            <span>Rent outfits for fests & events</span>
-                                        </div>
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        className={`role-select-card ${formData.role === 'lender' ? 'active' : ''}`}
-                                        onClick={() => setFormData(prev => ({ ...prev, role: 'lender' }))}
-                                    >
-                                        <span className="role-icon">💼</span>
-                                        <div className="role-text">
-                                            <strong>Wardrobe Host</strong>
-                                            <span>List outfits you own & earn</span>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
 
                             <div className="form-group">
                                 <label htmlFor="name" className="form-label">Full Name *</label>

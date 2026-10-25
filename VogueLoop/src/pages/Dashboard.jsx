@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useListings } from '../context/ListingsContext';
 import { useCart } from '../context/CartContext';
@@ -75,6 +75,7 @@ const DEMO_ACTIVE_RENTAL = {
 
 const Dashboard = () => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const { user, mode, setMode } = useAuth();
     const { listings, wishlist, getListingById } = useListings();
     const { cartItems } = useCart();
@@ -85,6 +86,18 @@ const Dashboard = () => {
     // Tabs state: adapts automatically based on active mode
     const [renterTab, setRenterTab] = useState('rentals'); // 'rentals' | 'wishlist' | 'checklist'
     const [lenderTab, setLenderTab] = useState('requests'); // 'requests' | 'listings' | 'earnings'
+
+    useEffect(() => {
+        const tab = searchParams.get('tab');
+        if (tab === 'wishlist') {
+            setRenterTab('wishlist');
+        } else if (tab === 'checklist') {
+            setRenterTab('checklist');
+        } else if (tab === 'requests' || tab === 'listings' || tab === 'earnings') {
+            setMode('lender');
+            setLenderTab(tab);
+        }
+    }, [searchParams, setMode]);
 
     // Interactive state for lender requests
     const [borrowRequests, setBorrowRequests] = useState(INITIAL_BORROW_REQUESTS);
@@ -162,6 +175,13 @@ const Dashboard = () => {
     return (
         <div className="dashboard-page">
             <div className="container py-2xl">
+                {/* Top Return Navigation */}
+                <div className="app-back-navigation mb-md">
+                    <Link to="/browse" className="back-nav-btn" title="Return to Marketplace Outfits">
+                        <ChevronLeft size={16} />
+                        <span>Back to Browse Outfits</span>
+                    </Link>
+                </div>
 
                 {/* Top Profile & Mode Switcher Bar */}
                 <div className="dashboard-hero-card">

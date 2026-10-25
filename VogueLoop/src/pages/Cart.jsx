@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Trash2, ShoppingBag, Calendar, ShieldCheck, ArrowRight, Lock, MapPin } from 'lucide-react';
+import { Trash2, ShoppingBag, Calendar, ShieldCheck, ArrowRight, Lock, MapPin, ChevronLeft, Plus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useListings } from '../context/ListingsContext';
 import { format, differenceInDays } from 'date-fns';
@@ -16,12 +16,20 @@ const Cart = () => {
     if (cartItems.length === 0) {
         return (
             <div className="cart-page">
-                <div className="container py-3xl">
+                <div className="container py-2xl">
+                    {/* Top Return Navigation */}
+                    <div className="app-back-navigation mb-lg">
+                        <button onClick={() => navigate('/browse')} className="back-nav-btn">
+                            <ChevronLeft size={16} />
+                            <span>Back to Browse Outfits</span>
+                        </button>
+                    </div>
+
                     <div className="empty-cart-card">
                         <ShoppingBag size={56} className="empty-icon" />
                         <h2>Your Rental Bag is Empty</h2>
                         <p>Explore student closets near campus for college fests, farewells, ethnic days, and university events!</p>
-                        <Link to="/browse" className="btn btn-lg btn-primary mt-md">
+                        <Link to="/browse" className="btn btn-lg btn-fashion mt-md">
                             Browse Campus Outfits
                         </Link>
                     </div>
@@ -38,15 +46,29 @@ const Cart = () => {
     return (
         <div className="cart-page">
             <div className="container py-2xl">
+                {/* Top Return Navigation */}
+                <div className="app-back-navigation mb-md">
+                    <button onClick={() => navigate('/browse')} className="back-nav-btn">
+                        <ChevronLeft size={16} />
+                        <span>Back to Browse Outfits</span>
+                    </button>
+                </div>
+
                 {/* Header */}
                 <div className="cart-page-header">
                     <div>
                         <span className="section-kicker">CAMPUS RENTAL BAG</span>
                         <h1>Review Your Selection</h1>
                     </div>
-                    <button onClick={clearCart} className="btn btn-sm btn-secondary">
-                        Clear Bag
-                    </button>
+                    <div className="cart-header-actions">
+                        <Link to="/browse" className="btn btn-sm btn-secondary add-more-btn">
+                            <Plus size={14} />
+                            <span>Rent More Outfits</span>
+                        </Link>
+                        <button onClick={clearCart} className="btn btn-sm btn-outline-danger">
+                            Clear Bag
+                        </button>
+                    </div>
                 </div>
 
                 <div className="cart-layout-grid mt-xl">
